@@ -34,6 +34,8 @@ The Shoreline cover pairs a still sun with gently moving water. Each chapter has
 
 The complete text and navigation work without JavaScript. Motion respects the device’s reduced-motion setting and the reader’s preference. An SVG shoreline replaces the WebGL water when needed. Print styles, a Markdown download, stable passage links, and machine-readable discovery files are included.
 
+Each reading page has its own description. Open Graph and Twitter cards include image descriptions, and Book structured data identifies the author and subjects. Edit page summaries in `config.toml` under `extra.page_descriptions`; the generator carries them into the page metadata.
+
 ## Run locally
 
 Install [mise](https://mise.jdx.dev), then run:

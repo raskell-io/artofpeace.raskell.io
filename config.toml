@@ -65,3 +65,26 @@ footer_columns = [
     ] },
   ],
 ]
+
+[extra.seo]
+image_alt = "The Art of Peace by raskell: On living together without thinking alike. A pale book cover with a sun and horizon."
+topics = ["Peace", "Independent thought", "Disagreement", "Boundaries", "Voluntary cooperation", "Trust", "Diplomacy", "Humility"]
+
+[extra.page_descriptions]
+read = "Read The Art of Peace by raskell in full: thirteen chapters on independent thought, boundaries, trust, and living together without thinking alike."
+about = "How a morning swim in Nago Bay inspired The Art of Peace by raskell, a short book on disagreement, freedom, and the practice of peace."
+before-the-shore = "The opening of The Art of Peace: a morning swim in Okinawa leads to questions about disagreement, independence, and protecting peace without domination."
+on-peace = "Peace leaves room to question, refuse, and leave. Eight passages on hearing grievances, resisting coercion, and protecting an ordinary life."
+on-difference = "Belonging need not require agreement. Eight passages on independent thought, dissent, solitude, and living beside people whose values differ."
+on-boundaries = "Clear boundaries protect consent without claiming another person's conscience. Eight passages on limits, criticism, safety, and fair rules."
+on-strength = "Strength gives a refusal weight. Eight passages on protection, restraint, accountable power, alliances, and the freedom that comes with alternatives."
+on-understanding = "Listen for what an argument is really about. Eight passages on fear, evidence, privacy, correction, and understanding harm without excusing it."
+on-sharing = "Give without making obedience the price. Eight passages on teaching, scarcity, shared resources, maintenance, and generosity that preserves freedom."
+on-trust = "Trust grows through promises kept and failures understood. Eight passages on verification, clear records, safeguards, and rebuilding confidence."
+on-diplomacy = "Seek agreements people can keep. Eight passages on shared needs, authority, dignity, small settlements, and knowing when talks must give way to protection."
+on-escalation = "Keep a dispute within its true extent. Eight passages on slowing irreversible acts, preserving communication, and stopping when the purpose is met."
+on-humility = "Hold convictions openly enough to learn. Eight passages on uncertainty, correction, unwelcome questions, and sharing credit without demanding allegiance."
+on-what-we-build = "Build arrangements that survive human mistakes. Eight passages on incentives, shared responsibility, repair, independence, and preparing others to take over."
+on-repair = "Repair begins by stopping harm. Eight passages on accountability, useful restitution, forgiveness freely given, changed conduct, and peace at a distance."
+on-keeping-peace = "Leave room for the next disagreement. Eight passages on maintaining agreements, sharing the watch, teaching dissent, and preserving usable freedoms."
+returning = "The closing of The Art of Peace returns to ordinary acts: clear promises, respected refusals, shared knowledge, and the freedom to question these pages."

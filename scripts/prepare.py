@@ -42,9 +42,9 @@ def parse_manuscript():
     return source, sections
 
 
-def frontmatter(title, template, extra=""):
+def frontmatter(title, template, extra="", description=""):
     return (f'+++\n# Generated from manuscript.md by scripts/prepare.py\ntitle = {json.dumps(title)}\ntemplate = "{template}"\n'
-            f'{extra}+++\n')
+            f'description = {json.dumps(description)}\n{extra}+++\n')
 
 
 def main():
@@ -54,13 +54,13 @@ def main():
     source, sections = parse_manuscript()
     write("data/book.json", json.dumps({"sections": sections, "passage_count": 104}, ensure_ascii=False, indent=2) + "\n")
     generated = {"_index.md", "read.md", "about.md"}
-    write("content/_index.md", frontmatter("The Art of Peace", "index.html"))
-    write("content/read.md", frontmatter("Read the book", "read.html"))
-    write("content/about.md", frontmatter("About the book", "about.html"))
+    write("content/_index.md", frontmatter("The Art of Peace", "index.html", description=config["description"]))
+    write("content/read.md", frontmatter("Read the book", "read.html", description=config["extra"]["page_descriptions"]["read"]))
+    write("content/about.md", frontmatter("About the book", "about.html", description=config["extra"]["page_descriptions"]["about"]))
     for index, section in enumerate(sections):
         filename = section["slug"] + ".md"
         generated.add(filename)
-        write("content/" + filename, frontmatter(section["title"], "chapter.html", f"[extra]\nbook_index = {index}\n"))
+        write("content/" + filename, frontmatter(section["title"], "chapter.html", f"[extra]\nbook_index = {index}\n", description=config["extra"]["page_descriptions"][section["slug"]]))
     # This directory contains generated files only. Remove stale generated pages.
     for path in (ROOT / "content").glob("*.md"):
         if path.name not in generated and path.read_text().startswith("+++\n# Generated from manuscript.md by scripts/prepare.py\n"):

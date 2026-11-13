@@ -6,23 +6,33 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
-  {% set page_title = config.title %}
-  {% if page is defined %}{% set page_title = page.title ~ " · " ~ config.title %}{% endif %}
+  {% set page_title = config.title ~ " · raskell" %}
+  {% set page_description = config.description %}
+  {% if page is defined %}{% set page_title = page.title ~ " · " ~ config.title %}{% set page_description = page.description | default(value=config.description) %}{% endif %}
   <title>{{ page_title }}</title>
-  <meta name="description" content="{{ config.description }}">
+  <meta name="author" content="Raffael Schneider (raskell)">
+  <meta name="description" content="{{ page_description }}">
   {% if current_url is defined %}<link rel="canonical" href="{{ current_url }}">{% endif %}
   <link rel="icon" type="image/svg+xml" href="{{ get_url(path='favicon.svg') }}">
   <link rel="stylesheet" href="{{ get_url(path='book.css', cachebust=true) }}">
   {% if config.extra.brand_styles %}<link rel="stylesheet" href="{{ get_url(path=config.extra.brand_styles, cachebust=true) }}">{% endif %}
   <link rel="alternate" type="text/markdown" href="{{ get_url(path='book.md') }}" title="Complete manuscript">
+  <meta property="og:site_name" content="{{ config.title }}">
   <meta property="og:type" content="book">
   <meta property="og:title" content="{{ page_title }}">
-  <meta property="og:description" content="{{ config.description }}">
+  <meta property="og:description" content="{{ page_description }}">
   <meta property="og:image" content="{{ get_url(path='social.png') }}">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:alt" content="{{ config.extra.seo.image_alt }}">
+  <meta property="book:author" content="{{ config.extra.author_url }}">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   {% if current_url is defined %}<meta property="og:url" content="{{ current_url }}">{% endif %}
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ page_title }}">
+  <meta name="twitter:description" content="{{ page_description }}">
+  <meta name="twitter:image" content="{{ get_url(path='social.png') }}">
+  <meta name="twitter:image:alt" content="{{ config.extra.seo.image_alt }}">
   <script src="{{ get_url(path='preferences.js', cachebust=true) }}"></script>
   <script src="{{ get_url(path='book.js', cachebust=true) }}" defer></script>
   <script src="{{ get_url(path='motion.js', cachebust=true) }}" defer></script>
@@ -30,7 +40,7 @@
   {% set book_id = config.base_url ~ '/#book' %}
   {% set book_url = config.base_url ~ '/' %}
   {% set book_image = get_url(path='social.png') %}
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Book","@id":{{ book_id | json_encode() | safe }},"name":{{ config.title | json_encode() | safe }},"description":{{ config.description | json_encode() | safe }},"url":{{ book_url | json_encode() | safe }},"inLanguage":"en","bookFormat":"https://schema.org/EBook","author":{"@type":"Person","@id":{{ config.extra.author_id | json_encode() | safe }},"name":"Raffael Schneider","alternateName":"raskell","url":{{ config.extra.author_url | json_encode() | safe }}},"image":{{ book_image | json_encode() | safe }}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Book","@id":{{ book_id | json_encode() | safe }},"name":{{ config.title | json_encode() | safe }},"description":{{ config.description | json_encode() | safe }},"url":{{ book_url | json_encode() | safe }},"inLanguage":"en","isAccessibleForFree":true,"keywords":{{ config.extra.seo.topics | json_encode() | safe }},"bookFormat":"https://schema.org/EBook","author":{"@type":"Person","@id":{{ config.extra.author_id | json_encode() | safe }},"name":"Raffael Schneider","alternateName":"raskell","url":{{ config.extra.author_url | json_encode() | safe }}},"image":{{ book_image | json_encode() | safe }}}</script>
 </head>
 <body class="{% block body_class %}{% endblock body_class %}">
   <a class="skip-link" href="#main">Skip to text</a>
