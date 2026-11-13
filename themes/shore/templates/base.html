@@ -41,6 +41,7 @@
   {% set book_url = config.base_url ~ '/' %}
   {% set book_image = get_url(path='social.png') %}
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Book","@id":{{ book_id | json_encode() | safe }},"name":{{ config.title | json_encode() | safe }},"description":{{ config.description | json_encode() | safe }},"url":{{ book_url | json_encode() | safe }},"inLanguage":"en","isAccessibleForFree":true,"keywords":{{ config.extra.seo.topics | json_encode() | safe }},"bookFormat":"https://schema.org/EBook","author":{"@type":"Person","@id":{{ config.extra.author_id | json_encode() | safe }},"name":{{ config.extra.author | json_encode() | safe }},"url":{{ config.extra.author_url | json_encode() | safe }}},"image":{{ book_image | json_encode() | safe }}}</script>
+  {% include "partials/structured-data.html" %}
 </head>
 <body class="{% block body_class %}{% endblock body_class %}">
   <a class="skip-link" href="#main">Skip to text</a>

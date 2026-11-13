@@ -4,7 +4,7 @@ python = "3.12.13"
 
 [tasks.prepare]
 description = "Generate book data, chapter pages, and machine-readable editions"
-run = "python3 scripts/prepare.py"
+run = ["python3 scripts/prepare.py", "python3 scripts/stamp.py"]
 
 [tasks.build]
 description = "Build the complete web book"
@@ -15,6 +15,10 @@ run = "mise exec zola@0.22.1 -- zola build"
 description = "Build and verify the manuscript, pages, links, and discovery files"
 depends = ["build"]
 run = ["mise exec zola@0.22.1 -- zola check --skip-external-links", "python3 scripts/check.py"]
+
+[tasks.indexnow]
+description = "Tell IndexNow the pages changed, once the live site serves this build (CI runs it on main)"
+run = "python3 scripts/indexnow.py"
 
 [tasks.serve]
 alias = "dev"
