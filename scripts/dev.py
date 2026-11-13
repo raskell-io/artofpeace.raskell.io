@@ -9,7 +9,7 @@ from prepare import main as prepare
 root = Path(__file__).resolve().parents[1]
 os.chdir(root)
 prepare()
-watched = [root / "manuscript.md", root / "config.toml", root / "scripts/prepare.py"]
+watched = [root / "manuscript.md", root / "config.toml", root / "scripts/prepare.py", *sorted((root / "translations").glob("*"))]
 stamps = [p.stat().st_mtime_ns for p in watched]
 server = subprocess.Popen(["mise", "exec", "zola@0.22.1", "--", "zola", "serve", "--interface", "127.0.0.1", "--port", os.environ.get("BOOK_PORT", "1118"), "--extra-watch-path", "data"], start_new_session=True)
 

@@ -1,4 +1,4 @@
-"""Generate Zola inputs from the book's sole editable manuscript."""
+"""Generate Zola inputs from the English manuscript and its translations."""
 import json
 import re
 from pathlib import Path
@@ -15,8 +15,9 @@ def write(relative, text):
         path.write_text(text)
 
 
-def parse_manuscript():
-    source = (ROOT / "manuscript.md").read_text()
+def parse_manuscript(language="en"):
+    source_path = "manuscript.md" if language == "en" else f"translations/manuscript.{language}.md"
+    source = (ROOT / source_path).read_text()
     parts = re.split(r"^## (.+)\n", source, flags=re.M)
     sections = []
     for heading, body in zip(parts[1::2], parts[2::2]):
@@ -37,6 +38,14 @@ def parse_manuscript():
                          "body": "" if roman else body.strip(), "passages": passages})
     if [s["roman"] for s in sections if s["roman"]] != ROMANS:
         raise ValueError("Expected thirteen chapters in order")
+    if language != "en":
+        _, original = parse_manuscript()
+        if len(sections) != len(original):
+            raise ValueError(f"{language}: translation must retain all fifteen sections")
+        for section, english in zip(sections, original):
+            if section["roman"] != english["roman"]:
+                raise ValueError(f"{language}: chapter order differs")
+            section["slug"] = english["slug"]
     if len(sections) != 15 or sections[0]["slug"] != "before-the-shore" or sections[-1]["slug"] != "returning":
         raise ValueError("Expected the opening and closing around the thirteen chapters")
     return source, sections
@@ -62,6 +71,33 @@ def main():
         filename = section["slug"] + ".md"
         generated.add(filename)
         write("content/" + filename, frontmatter(section["title"], "chapter.html", f"[extra]\nbook_index = {index}\n", description=config["extra"]["page_descriptions"][section["slug"]]))
+    for language in ("zh", "ko"):
+        translated, chapters = parse_manuscript(language)
+        labels = json.loads((ROOT / f"translations/ui.{language}.json").read_text())
+        description = config["languages"][language]["description"]
+        write(f"data/book.{language}.json", json.dumps({"sections": chapters, "passage_count": 104}, ensure_ascii=False, indent=2) + "\n")
+        for slug, title, template in [("_index", "The Art of Peace", "index.html"), ("read", "Read the book", "read.html"), ("about", "About the book", "about.html")]:
+            filename = f"{slug}.{language}.md"
+            generated.add(filename)
+            write("content/" + filename, frontmatter(labels[title], template, description=labels[title] + " · " + description))
+        for index, chapter in enumerate(chapters):
+            filename = f"{chapter['slug']}.{language}.md"
+            generated.add(filename)
+            # Explicit English slugs preserve the same chapter route in every language.
+            extra = f'slug = "{chapter["slug"]}"\n[extra]\nbook_index = {index}\n'
+            summary = chapter["passages"][0]["body"] if chapter["roman"] else chapter["body"].split("\n\n")[0]
+            summary = summary.replace("*", "")
+            if len(summary) > 155:
+                summary = summary[:152].rstrip() + "…"
+            write("content/" + filename, frontmatter(chapter["title"], "chapter.html", extra, summary))
+        write(f"static/{language}/book.md", translated)
+        write(f"static/{language}/llms-full.txt", translated)
+        contents = "\n".join(f'- [{c["title"]}]({base}/{language}/{c["slug"]}/)' for c in chapters)
+        write(f"static/{language}/llms.txt", f"# {labels['The Art of Peace']}\n\n> {labels['On living together without thinking alike.']}\n\n{labels['By']} {config['extra']['author']}\n\n"
+              f"{labels['English is the source text. The Korean and Simplified Chinese editions were translated with AI assistance and may be revised.']}\n\n"
+              f"- [{labels['Read the book']}]({base}/{language}/read/)\n- [Markdown]({base}/{language}/book.md)\n- [{labels['About the book']}]({base}/{language}/about/)\n\n"
+              f"## {labels['Licence']}\n\n© {edition['published'][:4]} {config['extra']['author']} · [{edition['licence']}]({edition['licence_url']})\n\n"
+              f"{labels['You are welcome to share it unchanged, with credit, for non-commercial purposes. For a translation, an adaptation, or commercial use, please write to me.']}\n\n## {labels['Contents']}\n\n{contents}\n")
     # This directory contains generated files only. Remove stale generated pages.
     for path in (ROOT / "content").glob("*.md"):
         if path.name not in generated and path.read_text().startswith("+++\n# Generated from manuscript.md by scripts/prepare.py\n"):
@@ -75,8 +111,9 @@ def main():
           f"- [Full text]({base}/llms-full.txt)\n- [About the book]({base}/about/)\n\n## Licence\n\n"
           f"The text is © {edition['published'][:4]} {config['extra']['author']}, licensed [{edition['licence']}]({edition['licence_url']}): "
           f"share it unchanged, with credit and a link to {base}/, for non-commercial purposes. "
-          f"Translations, adaptations, and commercial use need the author's permission.\n\n## Contents\n\n{links}\n")
-    print(f"Prepared {len(sections)} sections and 104 passages from manuscript.md")
+          f"Translations, adaptations, and commercial use need the author's permission.\n\n## Contents\n\n{links}\n"
+          f"\n## Translations\n\n- [한국어]({base}/ko/llms.txt)\n- [简体中文]({base}/zh/llms.txt)\n")
+    print(f"Prepared three editions, each with {len(sections)} sections and 104 passages")
 
 
 if __name__ == "__main__":

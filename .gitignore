@@ -9,3 +9,8 @@
 /design/passages.js
 __pycache__/
 .DS_Store
+
+/data/book.zh.json
+/data/book.ko.json
+/static/zh/
+/static/ko/

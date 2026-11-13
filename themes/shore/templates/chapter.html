@@ -2,12 +2,12 @@
 {% block content %}
 {% set chapter = book_data.sections[page.extra.book_index] %}
 <div class="reader">
-  <div class="reader-meta"><a href="{{ config.base_url }}/#contents" data-open-contents>All chapters</a><a href="{{ get_url(path='read/', trailing_slash=true) }}#{{ chapter.slug }}">Read continuously <span aria-hidden="true">↗</span></a></div>
-  {{ book::chapter(chapter=chapter) }}
-  <nav class="chapter-navigation" aria-label="Previous and next chapters">
-    {% if page.extra.book_index > 0 %}{% set previous_index = page.extra.book_index - 1 %}{% set previous = book_data.sections[previous_index] %}<a href="{{ get_url(path=previous.slug ~ '/', trailing_slash=true) }}"><span class="eyebrow">Previous</span><span>← {{ previous.title }}</span></a>{% else %}<a href="{{ config.base_url }}"><span class="eyebrow">Return</span><span>← Title page</span></a>{% endif %}
+  <div class="reader-meta"><a href="{{ home_url }}#contents" data-open-contents>{{ t | get(key="All chapters") }}</a><a href="{{ get_url(path=locale_prefix ~ 'read/', trailing_slash=true) }}#{{ chapter.slug }}">{{ t | get(key="Read continuously") }} <span aria-hidden="true">↗</span></a></div>
+  {{ book::chapter(chapter=chapter, lang=lang) }}
+  <nav class="chapter-navigation" aria-label="{{ t | get(key='Previous and next chapters') }}">
+    {% if page.extra.book_index > 0 %}{% set previous_index = page.extra.book_index - 1 %}{% set previous = book_data.sections[previous_index] %}<a href="{{ get_url(path=locale_prefix ~ previous.slug ~ '/', trailing_slash=true) }}"><span class="eyebrow">{{ t | get(key="Previous") }}</span><span>← {{ previous.title }}</span></a>{% else %}<a href="{{ home_url }}"><span class="eyebrow">{{ t | get(key="Return") }}</span><span>← {{ t | get(key="Title page") }}</span></a>{% endif %}
     {% set section_count = book_data.sections | length %}{% set final_index = section_count - 1 %}
-    {% if page.extra.book_index < final_index %}{% set next_index = page.extra.book_index + 1 %}{% set next = book_data.sections[next_index] %}<a href="{{ get_url(path=next.slug ~ '/', trailing_slash=true) }}"><span class="eyebrow">Continue</span><span>{{ next.title }} →</span></a>{% else %}<a href="{{ get_url(path='about/', trailing_slash=true) }}"><span class="eyebrow">Afterword</span><span>About the book →</span></a>{% endif %}
+    {% if page.extra.book_index < final_index %}{% set next_index = page.extra.book_index + 1 %}{% set next = book_data.sections[next_index] %}<a href="{{ get_url(path=locale_prefix ~ next.slug ~ '/', trailing_slash=true) }}"><span class="eyebrow">{{ t | get(key="Continue") }}</span><span>{{ next.title }} →</span></a>{% else %}<a href="{{ get_url(path=locale_prefix ~ 'about/', trailing_slash=true) }}"><span class="eyebrow">{{ t | get(key="Afterword") }}</span><span>{{ t | get(key="About the book") }} →</span></a>{% endif %}
   </nav>
 </div>
 {% endblock content %}

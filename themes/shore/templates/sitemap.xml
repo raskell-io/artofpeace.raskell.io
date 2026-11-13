@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-{#- One lastmod for every page: the date the book's sources last changed (scripts/stamp.py). -#}
+{%- set config = load_data(path="config.toml") %}
 {%- set build = load_data(path="data/build.json", required=false) %}
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 {%- for entry in entries %}
+    {% set route = entry.permalink | replace(from=config.base_url ~ '/', to='') | trim_start_matches(pat='zh/') | trim_start_matches(pat='ko/') %}
     <url>
         <loc>{{ entry.permalink | escape_xml | safe }}</loc>
-        {%- if build %}
-        <lastmod>{{ build.modified }}</lastmod>
-        {%- endif %}
+        {% if build %}<lastmod>{{ build.modified }}</lastmod>{% endif %}
+        {% for code in ['en', 'ko', 'zh'] %}{% set prefix = '' %}{% set tag = code %}{% if code != 'en' %}{% set prefix = code ~ '/' %}{% endif %}{% if code == 'zh' %}{% set tag = 'zh-Hans' %}{% endif %}<xhtml:link rel="alternate" hreflang="{{ tag }}" href="{{ config.base_url ~ '/' ~ prefix ~ route | escape_xml | safe }}"/>{% endfor %}
+        <xhtml:link rel="alternate" hreflang="x-default" href="{{ config.base_url ~ '/' ~ route | escape_xml | safe }}"/>
     </url>
 {%- endfor %}
 </urlset>

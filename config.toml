@@ -90,3 +90,12 @@ on-what-we-build = "Build arrangements that survive human mistakes. Eight passag
 on-repair = "Repair begins by stopping harm. Eight passages on accountability, useful restitution, forgiveness freely given, changed conduct, and peace at a distance."
 on-keeping-peace = "Leave room for the next disagreement. Eight passages on maintaining agreements, sharing the watch, teaching dissent, and preserving usable freedoms."
 returning = "The closing of The Art of Peace returns to ordinary acts: clear promises, respected refusals, shared knowledge, and the freedom to question these pages."
+
+[languages.zh]
+title = "和平之艺"
+description = "Raffael Schneider 著《和平之艺》：思想不同，也能共同生活。十三章探寻自由、分歧与和平的实践。"
+build_search_index = false
+[languages.ko]
+title = "평화의 기술"
+description = "Raffael Schneider의 《평화의 기술》. 생각이 달라도 함께 살아가는 일, 자유와 이견, 평화의 실천을 다루는 열세 장입니다."
+build_search_index = false

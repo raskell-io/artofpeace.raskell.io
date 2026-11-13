@@ -10,7 +10,7 @@ import subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCES = ["manuscript.md", "config.toml", "data/edition.toml", "templates", "themes"]
+SOURCES = ["manuscript.md", "translations", "scripts/prepare.py", "config.toml", "data/edition.toml", "templates", "themes"]
 
 
 def git(*args):

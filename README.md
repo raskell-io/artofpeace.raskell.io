@@ -4,7 +4,7 @@
 
 A short book by [Raffael Schneider](https://raskell.io/about/), conceived during a morning swim in Nago Bay, Okinawa. Thirteen chapters explore peace among people who remain free to disagree: independent thought, voluntary cooperation, strength with humility, clear boundaries, and room for outliers.
 
-[Read the web edition](https://artofpeace.raskell.io) · [Read the manuscript](manuscript.md) · [About the book](https://artofpeace.raskell.io/about/)
+[Read in English](https://artofpeace.raskell.io) · [한국어](https://artofpeace.raskell.io/ko/) · [简体中文](https://artofpeace.raskell.io/zh/) · [Read the manuscript](manuscript.md) · [About the book](https://artofpeace.raskell.io/about/)
 
 ![The Art of Peace](static/social.png)
 
@@ -34,6 +34,8 @@ Peace here leaves room for disagreement. It asks how people can share a world wi
 
 The Shoreline cover pairs a still sun with gently moving water. Each chapter has a monochrome illustration. Readers can choose a continuous edition or individual chapters, adjust type size, switch to night colours, and optionally remember their place.
 
+The visual reading panel offers type-size previews, illustrated Paper / Night / Device choices, and motion and reading-position switches. A language menu keeps the current chapter and passage when switching editions.
+
 The complete text and navigation work without JavaScript. Motion respects the device’s reduced-motion setting and the reader’s preference. An SVG shoreline replaces the WebGL water when needed. Print styles, a Markdown download, stable passage links, and machine-readable discovery files are included.
 
 Each reading page has its own description. Open Graph and Twitter cards include image descriptions, and Book structured data identifies the author and subjects. Edit page summaries in `config.toml` under `extra.page_descriptions`; the generator carries them into the page metadata.
@@ -60,11 +62,13 @@ Zola **0.22.1** and Python **3.12.13** are pinned in `mise.toml`. Python uses on
 
 ## Edit the source
 
-`manuscript.md` is the single source of truth for the book. Edit it, then run `mise run check`. The checks compare all 104 passages in both reading views against the manuscript and validate local links, anchors, metadata, and discovery files.
+`manuscript.md` is the English source. The full Korean and Simplified Chinese translations live in `translations/manuscript.ko.md` and `translations/manuscript.zh.md`. These translations were prepared with AI assistance and remain open to revision. Keep all fifteen sections and the 104 passage numbers aligned when revising any edition. Edit it, then run `mise run check`. The checks compare all 104 passages in both reading views against each language’s manuscript and validate local links, anchors, metadata, and discovery files.
 
 | Path | Purpose |
 | --- | --- |
 | `manuscript.md` | Book text and reading order |
+| `translations/ui.<lang>.json` | Navigation, reading controls, and page text in English, Korean, and Simplified Chinese |
+| `translations/manuscript.<lang>.md` | Translated book manuscripts with shared passage numbering |
 | `scripts/prepare.py` | Generate chapter pages, book data, and machine copies |
 | `templates/` | Book-specific cover, About page, and illustrations |
 | `themes/shore/` | Reading layout, water, motion, controls, and print styles |
@@ -74,7 +78,9 @@ Zola **0.22.1** and Python **3.12.13** are pinned in `mise.toml`. Python uses on
 | `scripts/social.html` | Source for the social card |
 | `design/` | Visual proposals and design history |
 
-Generated `content/`, `data/book.json`, machine copies, and `public/` are ignored by Git. Do not edit them by hand. Keep passage identifiers stable when revising: `/on-boundaries/#p5` and `/read/#iii-5` refer to the same passage.
+Generated `content/`, `data/book*.json`, machine copies (including `static/ko/` and `static/zh/`), and `public/` are ignored by Git. Do not edit them by hand. Keep passage identifiers stable when revising: `/on-boundaries/#p5` and `/read/#iii-5` refer to the same passage. The same identifiers apply below `/ko/` and `/zh/`. Each edition has its own Markdown download, machine-readable text, metadata, and social card. Language alternates appear in page heads and the sitemap; translation schema links back to the English book.
+
+UI catalogues must have identical keys. Chinese paragraphs stay on one line; Korean uses formal prose and word-aware wrapping. Preview `scripts/social.html?lang=ko` or `?lang=zh` at 1200 × 630 to regenerate the corresponding `static/social.<lang>.png` after a cover change.
 
 ## Publish
 

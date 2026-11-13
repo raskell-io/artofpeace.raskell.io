@@ -1,7 +1,13 @@
 {% import "macros.html" as book %}
-{% set book_data = load_data(path="data/book.json") %}
+{% set lang = lang | default(value="en") %}
+{% set t = load_data(path="translations/ui." ~ lang ~ ".json") %}
+{% set locale_prefix = '' %}{% set book_file = 'data/book.json' %}{% set html_lang = lang %}{% if lang != 'en' %}{% set locale_prefix = lang ~ '/' %}{% set book_file = 'data/book.' ~ lang ~ '.json' %}{% endif %}{% if lang == 'zh' %}{% set html_lang = 'zh-Hans' %}{% endif %}
+{% set home_url = get_url(path=locale_prefix, trailing_slash=true) %}
+{% set social_file = 'social.png' %}{% if lang != 'en' %}{% set social_file = 'social.' ~ lang ~ '.png' %}{% endif %}
+{% set book_data = load_data(path=book_file) %}
+{% set route = '' %}{% if page is defined %}{% set route = page.slug ~ '/' %}{% endif %}
 <!doctype html>
-<html lang="en">
+<html lang="{{ html_lang }}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,17 +19,22 @@
   <meta name="author" content="{{ config.extra.author }}">
   <meta name="description" content="{{ page_description }}">
   {% if current_url is defined %}<link rel="canonical" href="{{ current_url }}">{% endif %}
+  {% if current_url is defined %}
+  {% for code in ['en','ko','zh'] %}{% set prefix = '' %}{% set tag = code %}{% if code != 'en' %}{% set prefix = code ~ '/' %}{% endif %}{% if code == 'zh' %}{% set tag = 'zh-Hans' %}{% endif %}<link rel="alternate" hreflang="{{ tag }}" href="{{ get_url(path=prefix ~ route, trailing_slash=true) }}">{% endfor %}
+  <link rel="alternate" hreflang="x-default" href="{{ get_url(path=route, trailing_slash=true) }}">
+  {% endif %}
   <link rel="icon" type="image/svg+xml" href="{{ get_url(path='favicon.svg') }}">
   <link rel="stylesheet" href="{{ get_url(path='book.css', cachebust=true) }}">
   {% if config.extra.brand_styles %}<link rel="stylesheet" href="{{ get_url(path=config.extra.brand_styles, cachebust=true) }}">{% endif %}
-  <link rel="alternate" type="text/markdown" href="{{ get_url(path='book.md') }}" title="Complete manuscript">
+  <link rel="alternate" type="text/markdown" href="{{ get_url(path=locale_prefix ~ 'book.md') }}" title="{{ t | get(key='Complete manuscript') }}">
   <meta property="og:site_name" content="{{ config.title }}">
+  <meta property="og:locale" content="{% if lang == 'zh' %}zh_CN{% elif lang == 'ko' %}ko_KR{% else %}en_US{% endif %}">
   <meta property="og:type" content="book">
   <meta property="og:title" content="{{ page_title }}">
   <meta property="og:description" content="{{ page_description }}">
-  <meta property="og:image" content="{{ get_url(path='social.png') }}">
+  <meta property="og:image" content="{{ get_url(path=social_file) }}">
   <meta property="og:image:type" content="image/png">
-  <meta property="og:image:alt" content="{{ config.extra.seo.image_alt }}">
+  <meta property="og:image:alt" content="{{ t | get(key="Social image description") }}">
   <meta property="book:author" content="{{ config.extra.author_url }}">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -31,43 +42,33 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{{ page_title }}">
   <meta name="twitter:description" content="{{ page_description }}">
-  <meta name="twitter:image" content="{{ get_url(path='social.png') }}">
-  <meta name="twitter:image:alt" content="{{ config.extra.seo.image_alt }}">
+  <meta name="twitter:image" content="{{ get_url(path=social_file) }}">
+  <meta name="twitter:image:alt" content="{{ t | get(key="Social image description") }}">
+  <script type="application/json" id="reader-labels">{
+  {% for key in ['Continue with {title} ↗', 'Storage is unavailable. Your place cannot be saved.', 'Storage is unavailable. Your choices apply to this page.', 'Saved place cleared.', 'This browser cannot clear the saved place.', 'Motion is off to match your device setting.', 'Quiet movement in illustrations. Turn off for stillness.', 'Your motion choice applies to this visit.'] %}{{ key | json_encode() | safe }}: {{ t | get(key=key) | json_encode() | safe }}{% if not loop.last %},{% endif %}{% endfor %}
+  }</script>
   <script src="{{ get_url(path='preferences.js', cachebust=true) }}"></script>
   <script src="{{ get_url(path='book.js', cachebust=true) }}" defer></script>
   <script src="{{ get_url(path='motion.js', cachebust=true) }}" defer></script>
   {% block page_scripts %}{% endblock page_scripts %}
-  {% set book_id = config.base_url ~ '/#book' %}
-  {% set book_url = config.base_url ~ '/' %}
-  {% set book_image = get_url(path='social.png') %}
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Book","@id":{{ book_id | json_encode() | safe }},"name":{{ config.title | json_encode() | safe }},"description":{{ config.description | json_encode() | safe }},"url":{{ book_url | json_encode() | safe }},"inLanguage":"en","isAccessibleForFree":true,"keywords":{{ config.extra.seo.topics | json_encode() | safe }},"bookFormat":"https://schema.org/EBook","author":{"@type":"Person","@id":{{ config.extra.author_id | json_encode() | safe }},"name":{{ config.extra.author | json_encode() | safe }},"url":{{ config.extra.author_url | json_encode() | safe }}},"image":{{ book_image | json_encode() | safe }}}</script>
+  {% set book_id = home_url ~ '#book' %}
+  {% set book_url = home_url %}
+  {% set book_image = get_url(path=social_file) %}
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Book","@id":{{ book_id | json_encode() | safe }},"name":{{ config.title | json_encode() | safe }},"description":{{ config.description | json_encode() | safe }},"url":{{ book_url | json_encode() | safe }},"inLanguage":{{ html_lang | json_encode() | safe }},"isAccessibleForFree":true,"keywords":{{ config.extra.seo.topics | json_encode() | safe }},"bookFormat":"https://schema.org/EBook",{% if lang != 'en' %}"translationOfWork":{"@id":{{ config.base_url ~ '/#book' | json_encode() | safe }}},{% else %}"workTranslation":[{"@id":{{ config.base_url ~ '/ko/#book' | json_encode() | safe }}},{"@id":{{ config.base_url ~ '/zh/#book' | json_encode() | safe }}}],{% endif %}"author":{"@type":"Person","@id":{{ config.extra.author_id | json_encode() | safe }},"name":{{ config.extra.author | json_encode() | safe }},"url":{{ config.extra.author_url | json_encode() | safe }}},"image":{{ book_image | json_encode() | safe }}}</script>
   {% include "partials/structured-data.html" %}
 </head>
 <body class="{% block body_class %}{% endblock body_class %}">
-  <a class="skip-link" href="#main">Skip to text</a>
+  <a class="skip-link" href="#main">{{ t | get(key="Skip to text") }}</a>
   <header class="site-header">
-    <a class="book-name" href="{{ config.base_url }}">{{ config.title }}</a>
-    <nav class="header-nav" aria-label="Book navigation">
-      {% block contents_link %}<a href="{{ config.base_url }}/#contents" data-open-contents>Contents</a>{% endblock contents_link %}
-      <a href="{{ get_url(path='about/', trailing_slash=true) }}">About</a>
-      <a href="{{ get_url(path='read/', trailing_slash=true) }}" class="read-nav">Read <span aria-hidden="true">↗</span></a>
-      <details class="settings js-only">
-        <summary aria-label="Reading settings">Aa</summary>
-        <div class="settings-panel">
-          <p class="eyebrow">Make yourself comfortable</p>
-          <label for="text-size">Text size</label>
-          <select id="text-size"><option value="normal">Standard</option><option value="large">Larger</option><option value="largest">Largest</option></select>
-          <label for="appearance">Appearance</label>
-          <select id="appearance"><option value="system">Follow device</option><option value="light">Paper</option><option value="dark">Night</option></select>
-          <label class="motion-label"><input type="checkbox" id="gentle-motion" checked> Gentle motion</label><p class="settings-note" id="motion-note">Follows your device’s reduced-motion setting.</p>
-          <label class="remember-label"><input type="checkbox" id="remember"> Remember my place</label>
-          <p class="settings-note">Save your reading position only in this browser.</p>
-          <button type="button" id="clear-place" class="text-button">Clear saved place</button>
-          <p id="settings-status" class="settings-note" role="status"></p>
-        </div>
-      </details>
+    <a class="book-name" href="{{ home_url }}">{{ config.title }}</a>
+    <nav class="header-nav" aria-label="{{ t | get(key='Book navigation') }}">
+      {% block contents_link %}<a href="{{ home_url }}#contents" data-open-contents>{{ t | get(key="Contents") }}</a>{% endblock contents_link %}
+      <a href="{{ get_url(path=locale_prefix ~ 'about/', trailing_slash=true) }}">{{ t | get(key="About") }}</a>
+      <a href="{{ get_url(path=locale_prefix ~ 'read/', trailing_slash=true) }}" class="read-nav">{{ t | get(key="Read") }} <span aria-hidden="true">↗</span></a>
+      {% include "partials/languages.html" %}
+      {% include "partials/settings.html" %}
     </nav>
-    <a class="author-brand header-brand" href="{{ config.extra.web_presence_url }}" aria-label="{{ config.extra.web_presence_name }} · {{ config.extra.author }}’s tech and development blog">{% set brand_id = "raskell-header" %}{% include "partials/author-brand.html" %}</a>
+    <a class="author-brand header-brand" href="{{ config.extra.web_presence_url }}" aria-label="{{ t | get(key='Raskell · Raffael Schneider’s tech and development blog') }}">{% set brand_id = "raskell-header" %}{% include "partials/author-brand.html" %}</a>
   </header>
   <div class="reading-progress" aria-hidden="true"><span></span></div>
   <main id="main" tabindex="-1">{% block content %}{% endblock content %}</main>
@@ -76,31 +77,31 @@
     {% block footer_invitation %}{% endblock footer_invitation %}
     <div class="footer-directory">
       <div class="footer-author">
-        <p class="footer-byline">Written by <a href="{{ config.extra.author_url }}" rel="author">{{ config.extra.author }}</a></p>
-        <a class="author-brand footer-brand" href="{{ config.extra.web_presence_url }}" aria-label="{{ config.extra.web_presence_name }} · {{ config.extra.author }}’s tech and development blog">{% set brand_id = "raskell-footer" %}{% include "partials/author-brand.html" %}</a>
-        <div class="footer-about">{{ config.extra.footer_about | default(value=config.description) | markdown | safe }}</div>
-        <p class="footer-location"><span>You are here</span><a href="{{ config.extra.web_presence_url }}">{{ config.extra.web_presence_name }}</a><span aria-hidden="true">/</span><a href="{{ config.base_url }}">{{ config.title }}</a></p>
+        <p class="footer-byline">{{ t | get(key="Written by") }} <a href="{{ config.extra.author_url }}" rel="author">{{ config.extra.author }}</a></p>
+        <a class="author-brand footer-brand" href="{{ config.extra.web_presence_url }}" aria-label="{{ t | get(key='Raskell · Raffael Schneider’s tech and development blog') }}">{% set brand_id = "raskell-footer" %}{% include "partials/author-brand.html" %}</a>
+        <div class="footer-about">{% for paragraph in config.extra.footer_about | trim | split(pat="\n\n") %}<p>{{ t | get(key=paragraph) }}</p>{% endfor %}</div>
+        <p class="footer-location"><span>{{ t | get(key="You are here") }}</span><a href="{{ config.extra.web_presence_url }}">{{ config.extra.web_presence_name }}</a><span aria-hidden="true">/</span><a href="{{ home_url }}">{{ config.title }}</a></p>
       </div>
       <div class="footer-columns">
         {% for column in config.extra.footer_columns %}<div class="footer-column">
-          {% for group in column %}<nav class="footer-group" aria-label="{{ group.title }}"><h2>{{ group.title }}</h2>
-            {% for item in group.items %}{% set href = item.url %}{% set external = href is starting_with("https://") %}{% if not external %}{% set href = get_url(path=item.url, trailing_slash=item.url is ending_with("/")) %}{% endif %}
-            <a href="{{ href }}">{{ item.name }}{% if external %}<span class="footer-external" aria-hidden="true">↗</span>{% endif %}</a>
+          {% for group in column %}<nav class="footer-group" aria-label="{{ t | get(key=group.title) }}"><h2>{{ t | get(key=group.title) }}</h2>
+            {% for item in group.items %}{% set href = item.url %}{% set external = href is starting_with("https://") %}{% if not external %}{% if item.url == '/sitemap.xml' %}{% set href = get_url(path='sitemap.xml') %}{% else %}{% set local_path = item.url | trim_start_matches(pat='/') %}{% set href = get_url(path=locale_prefix ~ local_path, trailing_slash=item.url is ending_with("/")) %}{% endif %}{% endif %}
+            <a href="{{ href }}">{{ t | get(key=item.name, default=item.name) }}{% if external %}<span class="footer-external" aria-hidden="true">↗</span>{% endif %}</a>
             {% endfor %}
           </nav>{% endfor %}
         </div>{% endfor %}
       </div>
     </div>
     <div class="footer-colophon">
-      <p>{% block footer_origin %}A book by {{ config.extra.author }}{% endblock footer_origin %}</p>
-      <a href="#main">Back to the beginning <span aria-hidden="true">↑</span></a>
+      <p>{% block footer_origin %}{{ t | get(key="A book by") }} {{ config.extra.author }}{% endblock footer_origin %}</p>
+      <a href="#main">{{ t | get(key="Back to the beginning") }} <span aria-hidden="true">↑</span></a>
     </div>
   </footer>
   <dialog id="contents-dialog" aria-labelledby="contents-title">
-    <div class="dialog-heading"><h2 id="contents-title">Contents</h2><form method="dialog"><button aria-label="Close contents">Close <span aria-hidden="true">×</span></button></form></div>
-    <p class="dialog-description">Thirteen chapters on the practice of peace.</p>
-    <nav aria-label="Chapters">{{ book::contents(sections=book_data.sections, compact=true) }}</nav>
-    <a class="dialog-read-all" href="{{ get_url(path='read/', trailing_slash=true) }}">Read as one continuous book <span aria-hidden="true">↗</span></a>
+    <div class="dialog-heading"><h2 id="contents-title">{{ t | get(key="Contents") }}</h2><form method="dialog"><button aria-label="{{ t | get(key='Close contents') }}">{{ t | get(key="Close") }} <span aria-hidden="true">×</span></button></form></div>
+    <p class="dialog-description">{{ t | get(key="Thirteen chapters on the practice of peace.") }}</p>
+    <nav aria-label="{{ t | get(key='Chapters') }}">{{ book::contents(sections=book_data.sections, lang=lang, compact=true) }}</nav>
+    <a class="dialog-read-all" href="{{ get_url(path=locale_prefix ~ 'read/', trailing_slash=true) }}">{{ t | get(key="Read as one continuous book") }} <span aria-hidden="true">↗</span></a>
   </dialog>
 </body>
 </html>

@@ -1,0 +1,8 @@
+<details class="language-menu">
+  <summary aria-label="{{ t | get(key='Choose language') }}">{{ book::icon(name='globe') }}<span>{% if lang == 'zh' %}中文{% elif lang == 'ko' %}한국어{% else %}EN{% endif %}</span></summary>
+  <nav class="language-options" aria-label="{{ t | get(key='Language') }}">
+    {% for code in ['en', 'ko', 'zh'] %}{% set prefix = '' %}{% set name = 'English' %}{% set hreflang = code %}{% if code == 'ko' %}{% set prefix = 'ko/' %}{% set name = '한국어' %}{% elif code == 'zh' %}{% set prefix = 'zh/' %}{% set name = '简体中文' %}{% set hreflang = 'zh-Hans' %}{% endif %}
+    <a href="{{ get_url(path=prefix ~ route, trailing_slash=true) }}" lang="{{ hreflang }}" hreflang="{{ hreflang }}" data-language-link{% if code == lang %} aria-current="page"{% endif %}><span>{{ name }}</span>{% if code == lang %}<span aria-hidden="true">✓</span>{% endif %}</a>
+    {% endfor %}
+  </nav>
+</details>

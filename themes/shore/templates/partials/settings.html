@@ -1,0 +1,29 @@
+<details class="settings js-only">
+  <summary aria-label="{{ t | get(key='Reading settings') }}">{{ book::icon(name='sliders') }}<span>Aa</span></summary>
+  <div class="settings-panel" aria-labelledby="settings-title">
+    <div class="settings-heading"><div><h2 id="settings-title">{{ t | get(key='Make yourself comfortable') }}</h2><p>{{ t | get(key='A little room for reading.') }}</p></div><button class="settings-close icon-button" type="button" aria-label="{{ t | get(key='Close settings') }}">{{ book::icon(name='close') }}</button></div>
+    <fieldset class="settings-group"><legend>{{ book::icon(name='type') }}{{ t | get(key='Text size') }}</legend>
+      <div class="size-choices">
+      {% for choice in ['normal', 'large', 'largest'] %}{% set label = 'Standard' %}{% if choice == 'large' %}{% set label = 'Larger' %}{% elif choice == 'largest' %}{% set label = 'Largest' %}{% endif %}
+        <label class="setting-choice"><input type="radio" name="text-size" value="{{ choice }}"{% if loop.first %} checked{% endif %}><span class="choice-card"><span class="size-sample size-{{ choice }}" aria-hidden="true">{% if lang == 'zh' %}文{% elif lang == 'ko' %}가{% else %}Aa{% endif %}</span><span>{{ t | get(key=label) }}</span></span></label>
+      {% endfor %}
+      </div>
+      <p class="reading-sample" aria-hidden="true">{{ t | get(key='Room to think. Room to read.') }}</p>
+    </fieldset>
+    <fieldset class="settings-group"><legend>{{ book::icon(name='sun') }}{{ t | get(key='Appearance') }}</legend>
+      <div class="appearance-choices">
+      {% for choice in ['light', 'dark', 'system'] %}{% set label = 'Paper' %}{% set symbol = 'sun' %}{% if choice == 'dark' %}{% set label = 'Night' %}{% set symbol = 'moon' %}{% elif choice == 'system' %}{% set label = 'Follow device' %}{% set symbol = 'monitor' %}{% endif %}
+        <label class="setting-choice"><input type="radio" name="appearance" value="{{ choice }}"{% if choice == 'system' %} checked{% endif %}><span class="choice-card"><span class="appearance-swatch swatch-{{ choice }}" aria-hidden="true">{{ book::icon(name=symbol) }}<i></i><i></i></span><span>{{ t | get(key=label) }}</span></span></label>
+      {% endfor %}
+      </div>
+    </fieldset>
+    <div class="settings-switch-row">
+      <span class="setting-symbol">{{ book::icon(name='waves') }}</span><div><label for="gentle-motion">{{ t | get(key='Gentle motion') }}</label><p class="settings-note" id="motion-note">{{ t | get(key='Follows your device’s reduced-motion setting.') }}</p></div><input class="setting-switch" type="checkbox" id="gentle-motion" aria-describedby="motion-note" checked>
+    </div>
+    <div class="settings-switch-row">
+      <span class="setting-symbol">{{ book::icon(name='bookmark') }}</span><div><label for="remember">{{ t | get(key='Remember my place') }}</label><p class="settings-note" id="remember-note">{{ t | get(key='Save your reading position only in this browser.') }}</p></div><input class="setting-switch" type="checkbox" id="remember" aria-describedby="remember-note">
+    </div>
+    <button type="button" id="clear-place" class="clear-place">{{ book::icon(name='erase') }}{{ t | get(key='Clear saved place') }}</button>
+    <p id="settings-status" class="settings-note" role="status"></p>
+  </div>
+</details>
