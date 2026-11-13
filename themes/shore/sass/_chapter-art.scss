@@ -1,30 +1,77 @@
-/* A single ink colour, with the same static drawing available without JavaScript. */
+/* One ink colour. The drawing remains complete when motion is unavailable. */
 .chapter-art { color: var(--ink); width: 100%; margin: 1.8rem 0 -.5rem; }
 .chapter-art svg { display: block; width: 100%; height: auto; overflow: visible; }
 .chapter-art .art-faint { opacity: .3; }
 .chapter-heading:has(.chapter-art) .chapter-rule { display: none; }
 .chapter-art .art-sway { transform-box: fill-box; transform-origin: 50% 100%; }
-.chapter-art .art-breathe, .chapter-art .art-float { transform-box: fill-box; transform-origin: center; }
-@keyframes ink-sway { 0%, 100% { transform: rotate(-2deg); } 50% { transform: rotate(3deg); } }
-@keyframes ink-breathe { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
-@keyframes ink-float { 0%, 100% { transform: translateY(2px); } 50% { transform: translateY(-5px); } }
-@keyframes ink-drift { 0%, 100% { transform: translateX(-5px); } 50% { transform: translateX(7px); } }
-@keyframes ink-water { 0%, 100% { transform: translateX(-4px) scaleY(.96); } 50% { transform: translateX(4px) scaleY(1.02); } }
-@keyframes ink-flow { to { stroke-dashoffset: -48; } }
+.chapter-art .art-leaf { transform-box: fill-box; transform-origin: 100% 100%; }
+.chapter-art .art-leaf-right { transform-origin: 0% 100%; }
+.chapter-art .art-breathe, .chapter-art .art-float, .chapter-art .art-ripple,
+.chapter-art .art-water, .chapter-art .art-flame { transform-box: fill-box; transform-origin: center; }
+.chapter-art .art-flame { transform-origin: 50% 100%; }
+.chapter-art .art-ripple { opacity: .45; }
+.chapter-art .art-steam { opacity: .45; }
+
+/* Unequal intervals and independent periods let each part settle in its own time. */
+@keyframes ink-sway {
+  0%, 100% { transform: rotate(-.7deg); }
+  28% { transform: rotate(1.5deg); }
+  63% { transform: rotate(-1.1deg); }
+  82% { transform: rotate(.3deg); }
+}
+@keyframes ink-leaf {
+  0%, 100% { transform: rotate(0); }
+  37% { transform: rotate(-2.5deg); }
+  72% { transform: rotate(1.2deg); }
+}
+@keyframes ink-breathe { 0%, 100% { opacity: .72; } 41% { opacity: .94; } 76% { opacity: .82; } }
+@keyframes ink-float {
+  0%, 100% { transform: translate(0, 1px) rotate(-2deg); }
+  36% { transform: translate(2px, -2px) rotate(2deg); }
+  71% { transform: translate(-1px, -.5px) rotate(.5deg); }
+}
+@keyframes ink-drift { 0%, 100% { transform: translateX(-3px); } 44% { transform: translateX(5px); } 79% { transform: translateX(1px); } }
+@keyframes ink-water {
+  0%, 100% { transform: translate(-3px, .6px) scaleY(.94); }
+  38% { transform: translate(3px, -.8px) scaleY(1.06); }
+  73% { transform: translate(1px, .3px) scaleY(.98); }
+}
+@keyframes ink-ripple {
+  0% { transform: scale(.86); opacity: 0; }
+  24% { opacity: .45; }
+  65% { opacity: .26; }
+  100% { transform: scale(1.15); opacity: 0; }
+}
+@keyframes ink-steam {
+  0%, 100% { transform: translate(0, 1px) skewX(-2deg); opacity: .32; }
+  43% { transform: translate(1.5px, -2px) skewX(3deg); opacity: .55; }
+  78% { transform: translate(-1px, -.5px) skewX(-1deg); opacity: .4; }
+}
+@keyframes ink-flame {
+  0%, 100% { transform: scale(.98, 1) rotate(-1deg); }
+  31% { transform: scale(1.03, .97) rotate(2deg); }
+  57% { transform: scale(.97, 1.04) rotate(-1.5deg); }
+  83% { transform: scale(1.01, .99) rotate(.5deg); }
+}
 @media screen and (prefers-reduced-motion: no-preference) {
-  :root:not([data-motion='off']) .chapter-art {
-    .art-sway { animation: ink-sway 9s ease-in-out infinite; }
-    .art-breathe { animation: ink-breathe 7s ease-in-out infinite; }
-    .art-float { animation: ink-float 8s ease-in-out infinite; }
-    .art-drift { animation: ink-drift 12s ease-in-out infinite; }
-    .art-water { animation: ink-water 8s ease-in-out infinite; transform-origin: center; }
-    .art-flow { stroke-dasharray: 4 12; animation: ink-flow 8s linear infinite; }
-    .art-late { animation-delay: -3s; }
-    .art-later { animation-delay: -6s; }
+  :root.js:not([data-motion='off']) .chapter-art {
+    .art-sway { animation: ink-sway 13.7s cubic-bezier(.45, 0, .35, 1) infinite; }
+    .art-leaf { animation: ink-leaf 8.9s ease-in-out infinite; }
+    .art-breathe { animation: ink-breathe 17.3s ease-in-out infinite; }
+    .art-float { animation: ink-float 14.3s ease-in-out infinite; }
+    .art-drift { animation: ink-drift 23.7s ease-in-out infinite; }
+    .art-water { animation: ink-water 12.7s ease-in-out infinite; }
+    .art-ripple { animation: ink-ripple 12.7s linear infinite; }
+    .art-steam { animation: ink-steam 11.3s ease-in-out infinite; transform-box: fill-box; transform-origin: bottom; }
+    .art-flame { animation: ink-flame 6.7s ease-in-out infinite; }
+    .art-late { animation-delay: -4.7s; animation-duration: 16.1s; }
+    .art-later { animation-delay: -9.3s; animation-duration: 19.7s; }
+    .art-ripple.art-late { animation-duration: 12.7s; }
+    .art-ripple.art-later { animation-duration: 12.7s; }
     svg [class] { animation-play-state: paused; }
     &.art-visible svg [class] { animation-play-state: running; }
   }
-  :root:not([data-motion='off']) .motion-resting .chapter-art svg [class] { animation-play-state: paused; }
+  :root.js:not([data-motion='off']) .motion-resting .chapter-art svg [class] { animation-play-state: paused; }
 }
 @media (max-width: 700px) {
   .chapter-art { margin-top: 1.5rem; }
