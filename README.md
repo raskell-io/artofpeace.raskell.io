@@ -91,3 +91,7 @@ The site runs on **Cloudflare Pages**, connected to this repository. Pushes to `
 The build script uses mise and the pinned tools to run `mise run check` before Cloudflare publishes the output. No deployment credentials are stored in this repository.
 
 The first web edition retains the manuscript’s 104 passage references. EPUB and a separately typeset PDF may follow; the current edition offers Markdown and browser printing.
+
+## Licence
+
+The text of the book is © 2026 Raffael Schneider, licensed [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/): share it unchanged, with credit, for non-commercial purposes. See [LICENSE.md](LICENSE.md). The licence covers the text only, not the code, design, or illustrations of the web edition.

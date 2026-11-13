@@ -14,6 +14,9 @@
     <h2>This manuscript</h2>
     <p>This is a first manuscript, developed with AI assistance from my ideas and conversations. It remains open to revision. These passages are principles to examine and practise; their application asks for judgment.</p>
     <p>You can read the <a href="{{ get_url(path='read/', trailing_slash=true) }}">complete book</a>, visit an individual chapter, or keep a <a href="{{ get_url(path='book.md') }}" download>Markdown copy</a>. The complete reading view also has a print layout.</p>
+    {% set edition = load_data(path="data/edition.toml") %}
+    <h2>Licence</h2>
+    <p>The text of this book is © {{ edition.published | truncate(length=4, end="") }} {{ config.extra.author }}, published under <a href="{{ edition.licence_url }}" rel="license">{{ edition.licence }}</a>. You are welcome to share it unchanged, with credit, for non-commercial purposes. For a translation, an adaptation, or commercial use, please write to me.</p>
     <p>If a passage leaves you with a question, I would be glad to hear it. <a href="https://raskell.io/about/#contact">Write to me</a>.</p>
     <p class="signature"><a href="{{ config.extra.author_url }}" rel="author">{{ config.extra.author }}</a></p>
   </div>
