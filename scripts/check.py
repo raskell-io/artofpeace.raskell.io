@@ -55,7 +55,16 @@ assert len(pages) == 19, f"Expected 19 HTML documents, found {len(pages)}"
 for path, page in pages.items():
     assert page.h1 == 1, f"{path}: expected one h1"
     assert len(page.ids) == len(set(page.ids)), f"{path}: duplicate anchors"
-    assert len(page.schema) == 1 and page.schema[0]["@type"] == "Book", f"{path}: Book metadata missing"
+    assert len(page.schema) == 2 and page.schema[0]["@type"] == "Book", f"{path}: Book metadata missing"
+    graph = page.schema[1]["@graph"]
+    assert graph[0]["@id"] == base + "/#book" and len(graph[0]["hasPart"]) == 15, f"{path}: book parts missing"
+    assert graph[0]["datePublished"], f"{path}: publication date missing"
+    route_slug = str(path.relative_to(PUBLIC).parent)
+    if any(part["url"] == f"{base}/{route_slug}/" for part in graph[0]["hasPart"]):
+        assert [node["@type"] for node in graph[1:]] == ["Chapter", "BreadcrumbList"], f"{path}: chapter metadata missing"
+        assert graph[1]["isPartOf"]["@id"] == base + "/#book", f"{path}: chapter is not part of the book"
+    else:
+        assert len(graph) == 1, f"{path}: unexpected chapter metadata"
     assert page.schema[0]["@id"] == base + "/#book", f"{path}: incorrect Book identifier"
     assert page.schema[0]["author"]["@id"] == "https://raskell.io/#person", f"{path}: incorrect author identifier"
     route = "/" + str(path.relative_to(PUBLIC)).removesuffix("index.html")
@@ -90,7 +99,11 @@ assert count == 104
 assert (PUBLIC / "book.md").read_text() == source
 assert (PUBLIC / "llms-full.txt").read_text() == source
 assert "User-agent: *" in (PUBLIC / "robots.txt").read_text()
-assert "<urlset" in (PUBLIC / "sitemap.xml").read_text()
+sitemap = (PUBLIC / "sitemap.xml").read_text()
+assert "<urlset" in sitemap
+assert sitemap.count("<lastmod>") == sitemap.count("<loc>") == 18, "sitemap: expected a lastmod for each of 18 pages"
+assert (PUBLIC / "build.txt").read_text().strip(), "build.txt: commit stamp missing"
+assert any(re.fullmatch(r"[0-9a-f]{32}\.txt", p.name) for p in PUBLIC.glob("*.txt")), "IndexNow key file missing"
 assert "## Contents" in (PUBLIC / "llms.txt").read_text()
 assert (PUBLIC / "social.png").read_bytes().startswith(b"\x89PNG\r\n\x1a\n")
 for path in ROOT.glob("themes/shore/static/*.js"):

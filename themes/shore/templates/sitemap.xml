@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+{#- One lastmod for every page: the date the book's sources last changed (scripts/stamp.py). -#}
+{%- set build = load_data(path="data/build.json", required=false) %}
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{%- for entry in entries %}
+    <url>
+        <loc>{{ entry.permalink | escape_xml | safe }}</loc>
+        {%- if build %}
+        <lastmod>{{ build.modified }}</lastmod>
+        {%- endif %}
+    </url>
+{%- endfor %}
+</urlset>
