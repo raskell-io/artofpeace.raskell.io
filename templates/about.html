@@ -7,13 +7,15 @@
     {{ opening_paragraphs[0] | markdown | safe }}
     <p>I work with computers and build things. Those habits inform these pages: preparing for mistakes, keeping a failure from spreading, sharing what is useful, and making repair possible.</p>
     <p>The peace I seek leaves people free to disagree. It protects independent thought and makes room for the outlier, while asking us to respect one another's boundaries and resist coercion.</p>
+    <h2>The author</h2>
+    <p>I am Raffael Schneider. Raskell is my tech and development blog and web presence; I write this book under my own name.</p>
     <h2>The form</h2>
     <p>The book brings together the brevity and strategic attention I admire in Sun Tzu's <em>The Art of War</em> with the warmth and imagery I love in Kahlil Gibran's <em>The Prophet</em>. Its thirteen chapters contain 104 original passages.</p>
     <h2>This manuscript</h2>
     <p>This is a first manuscript, developed with AI assistance from my ideas and conversations. It remains open to revision. These passages are principles to examine and practise; their application asks for judgment.</p>
     <p>You can read the <a href="{{ get_url(path='read/', trailing_slash=true) }}">complete book</a>, visit an individual chapter, or keep a <a href="{{ get_url(path='book.md') }}" download>Markdown copy</a>. The complete reading view also has a print layout.</p>
     <p>If a passage leaves you with a question, I would be glad to hear it. <a href="https://raskell.io/about/#contact">Write to me</a>.</p>
-    <p class="signature"><a href="{{ config.extra.author_url }}" rel="author">raskell</a></p>
+    <p class="signature"><a href="{{ config.extra.author_url }}" rel="author">{{ config.extra.author }}</a></p>
   </div>
 </article>
 {% endblock content %}

@@ -11,6 +11,7 @@
   <header class="chapter-heading">
     <p class="eyebrow">{% if chapter.roman %}Chapter {{ chapter.roman }}{% elif chapter.slug == 'before-the-shore' %}An opening{% else %}A closing{% endif %}</p>
     {% if continuous %}<h2>{{ chapter.title }}</h2>{% else %}<h1>{{ chapter.title }}</h1>{% endif %}
+    {% if not continuous or chapter.slug == 'before-the-shore' %}<p class="book-byline chapter-byline">By <a href="{{ config.extra.author_url }}" rel="author">{{ config.extra.author }}</a></p>{% endif %}
     <span class="chapter-rule" aria-hidden="true"></span>
     {% include "partials/chapter-art.html" %}
   </header>

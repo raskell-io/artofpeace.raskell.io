@@ -1,6 +1,6 @@
 base_url = "https://artofpeace.raskell.io"
 title = "The Art of Peace"
-description = "On living together without thinking alike. A short book by raskell about freedom, disagreement, and the practice of peace."
+description = "On living together without thinking alike. A short book by Raffael Schneider about freedom, disagreement, and the practice of peace."
 default_language = "en"
 theme = "shore"
 compile_sass = true
@@ -11,8 +11,10 @@ generate_feeds = false
 smart_punctuation = true
 
 [extra]
-author = "raskell"
-author_url = "https://raskell.io/"
+author = "Raffael Schneider"
+author_url = "https://raskell.io/about/"
+web_presence_name = "Raskell"
+web_presence_url = "https://raskell.io/"
 author_id = "https://raskell.io/#person"
 edition = "First manuscript"
 subtitle = "On living together without thinking alike."
@@ -21,7 +23,7 @@ brand_styles = "brand.css"
 footer_about = """
 This book began with a morning swim in Nago Bay. I write about peace that leaves room for independent thought, disagreement, and care for what we share.
 
-Raskell is my corner of the web: writing, experiments, and the things I build. The name is rascal × Haskell × Raffael.
+Raskell is my tech and development blog, where I share writing, experiments, and the things I build.
 """
 footer_columns = [
   [
@@ -67,12 +69,12 @@ footer_columns = [
 ]
 
 [extra.seo]
-image_alt = "The Art of Peace by raskell: On living together without thinking alike. A pale book cover with a sun and horizon."
+image_alt = "The Art of Peace by Raffael Schneider: On living together without thinking alike. A pale book cover with a sun and horizon."
 topics = ["Peace", "Independent thought", "Disagreement", "Boundaries", "Voluntary cooperation", "Trust", "Diplomacy", "Humility"]
 
 [extra.page_descriptions]
-read = "Read The Art of Peace by raskell in full: thirteen chapters on independent thought, boundaries, trust, and living together without thinking alike."
-about = "How a morning swim in Nago Bay inspired The Art of Peace by raskell, a short book on disagreement, freedom, and the practice of peace."
+read = "Read The Art of Peace by Raffael Schneider: thirteen chapters on independent thought, boundaries, trust, and living together without thinking alike."
+about = "How a morning swim in Nago Bay inspired The Art of Peace by Raffael Schneider, a short book on disagreement, freedom, and the practice of peace."
 before-the-shore = "The opening of The Art of Peace: a morning swim in Okinawa leads to questions about disagreement, independence, and protecting peace without domination."
 on-peace = "Peace leaves room to question, refuse, and leave. Eight passages on hearing grievances, resisting coercion, and protecting an ordinary life."
 on-difference = "Belonging need not require agreement. Eight passages on independent thought, dissent, solitude, and living beside people whose values differ."

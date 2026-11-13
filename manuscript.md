@@ -1,6 +1,6 @@
 # The Art of Peace
 
-by raskell
+by Raffael Schneider
 
 *First manuscript*
 

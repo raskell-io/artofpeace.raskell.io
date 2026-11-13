@@ -69,7 +69,7 @@ def main():
     write("static/llms-full.txt", source)
     links = "\n".join(f'- [{s["title"]}]({base}/{s["slug"]}/)' for s in sections)
     write("static/llms.txt", f"# The Art of Peace\n\n> {config['extra']['subtitle']}\n\n"
-          f"By raskell. First manuscript. Original philosophical prose about preserving peace among people who remain free to disagree.\n\n"
+          f"By {config['extra']['author']}. First manuscript. Original philosophical prose about preserving peace among people who remain free to disagree.\n\n"
           f"## Editions\n\n- [Complete web book]({base}/read/)\n- [Markdown manuscript]({base}/book.md)\n"
           f"- [Full text]({base}/llms-full.txt)\n- [About the book]({base}/about/)\n\n## Contents\n\n{links}\n")
     print(f"Prepared {len(sections)} sections and 104 passages from manuscript.md")

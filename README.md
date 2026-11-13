@@ -2,13 +2,15 @@
 
 **On living together without thinking alike.**
 
-A short book by [raskell](https://raskell.io), conceived during a morning swim in Nago Bay, Okinawa. Thirteen chapters explore peace among people who remain free to disagree: independent thought, voluntary cooperation, strength with humility, clear boundaries, and room for outliers.
+A short book by [Raffael Schneider](https://raskell.io/about/), conceived during a morning swim in Nago Bay, Okinawa. Thirteen chapters explore peace among people who remain free to disagree: independent thought, voluntary cooperation, strength with humility, clear boundaries, and room for outliers.
 
 [Read the web edition](https://artofpeace.raskell.io) · [Read the manuscript](manuscript.md) · [About the book](https://artofpeace.raskell.io/about/)
 
 ![The Art of Peace](static/social.png)
 
 ## The book
+
+Raskell is Raffael Schneider’s tech and development blog and web presence. The book is published under his own name.
 
 An opening, thirteen chapters, 104 numbered passages, and a closing. The literary influences are Sun Tzu’s *The Art of War* and Kahlil Gibran’s *The Prophet*. The prose is original and was drafted with AI assistance from Raffael’s ideas and experiences.
 

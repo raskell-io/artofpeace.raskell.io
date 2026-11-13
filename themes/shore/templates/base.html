@@ -6,11 +6,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
-  {% set page_title = config.title ~ " · raskell" %}
+  {% set page_title = config.title ~ " · " ~ config.extra.author %}
   {% set page_description = config.description %}
   {% if page is defined %}{% set page_title = page.title ~ " · " ~ config.title %}{% set page_description = page.description | default(value=config.description) %}{% endif %}
   <title>{{ page_title }}</title>
-  <meta name="author" content="Raffael Schneider (raskell)">
+  <meta name="author" content="{{ config.extra.author }}">
   <meta name="description" content="{{ page_description }}">
   {% if current_url is defined %}<link rel="canonical" href="{{ current_url }}">{% endif %}
   <link rel="icon" type="image/svg+xml" href="{{ get_url(path='favicon.svg') }}">
@@ -40,7 +40,7 @@
   {% set book_id = config.base_url ~ '/#book' %}
   {% set book_url = config.base_url ~ '/' %}
   {% set book_image = get_url(path='social.png') %}
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Book","@id":{{ book_id | json_encode() | safe }},"name":{{ config.title | json_encode() | safe }},"description":{{ config.description | json_encode() | safe }},"url":{{ book_url | json_encode() | safe }},"inLanguage":"en","isAccessibleForFree":true,"keywords":{{ config.extra.seo.topics | json_encode() | safe }},"bookFormat":"https://schema.org/EBook","author":{"@type":"Person","@id":{{ config.extra.author_id | json_encode() | safe }},"name":"Raffael Schneider","alternateName":"raskell","url":{{ config.extra.author_url | json_encode() | safe }}},"image":{{ book_image | json_encode() | safe }}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Book","@id":{{ book_id | json_encode() | safe }},"name":{{ config.title | json_encode() | safe }},"description":{{ config.description | json_encode() | safe }},"url":{{ book_url | json_encode() | safe }},"inLanguage":"en","isAccessibleForFree":true,"keywords":{{ config.extra.seo.topics | json_encode() | safe }},"bookFormat":"https://schema.org/EBook","author":{"@type":"Person","@id":{{ config.extra.author_id | json_encode() | safe }},"name":{{ config.extra.author | json_encode() | safe }},"url":{{ config.extra.author_url | json_encode() | safe }}},"image":{{ book_image | json_encode() | safe }}}</script>
 </head>
 <body class="{% block body_class %}{% endblock body_class %}">
   <a class="skip-link" href="#main">Skip to text</a>
@@ -66,7 +66,7 @@
         </div>
       </details>
     </nav>
-    <a class="author-brand header-brand" href="{{ config.extra.author_url }}" rel="author" aria-label="{{ config.extra.author }} · Author’s website">{% set brand_id = "raskell-header" %}{% include "partials/author-brand.html" %}</a>
+    <a class="author-brand header-brand" href="{{ config.extra.web_presence_url }}" aria-label="{{ config.extra.web_presence_name }} · {{ config.extra.author }}’s tech and development blog">{% set brand_id = "raskell-header" %}{% include "partials/author-brand.html" %}</a>
   </header>
   <div class="reading-progress" aria-hidden="true"><span></span></div>
   <main id="main" tabindex="-1">{% block content %}{% endblock content %}</main>
@@ -75,9 +75,10 @@
     {% block footer_invitation %}{% endblock footer_invitation %}
     <div class="footer-directory">
       <div class="footer-author">
-        <a class="author-brand footer-brand" href="{{ config.extra.author_url }}" rel="author" aria-label="{{ config.extra.author }} · Author’s website">{% set brand_id = "raskell-footer" %}{% include "partials/author-brand.html" %}</a>
+        <p class="footer-byline">Written by <a href="{{ config.extra.author_url }}" rel="author">{{ config.extra.author }}</a></p>
+        <a class="author-brand footer-brand" href="{{ config.extra.web_presence_url }}" aria-label="{{ config.extra.web_presence_name }} · {{ config.extra.author }}’s tech and development blog">{% set brand_id = "raskell-footer" %}{% include "partials/author-brand.html" %}</a>
         <div class="footer-about">{{ config.extra.footer_about | default(value=config.description) | markdown | safe }}</div>
-        <p class="footer-location"><span>You are here</span><a href="{{ config.extra.author_url }}">Raskell</a><span aria-hidden="true">/</span><a href="{{ config.base_url }}">{{ config.title }}</a></p>
+        <p class="footer-location"><span>You are here</span><a href="{{ config.extra.web_presence_url }}">{{ config.extra.web_presence_name }}</a><span aria-hidden="true">/</span><a href="{{ config.base_url }}">{{ config.title }}</a></p>
       </div>
       <div class="footer-columns">
         {% for column in config.extra.footer_columns %}<div class="footer-column">
