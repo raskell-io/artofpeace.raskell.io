@@ -1,0 +1,9 @@
+/public/
+/content/
+/data/book.json
+/static/book.md
+/static/llms.txt
+/static/llms-full.txt
+/design/passages.js
+__pycache__/
+.DS_Store

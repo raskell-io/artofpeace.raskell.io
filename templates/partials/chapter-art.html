@@ -1,0 +1,76 @@
+<div class="chapter-art" data-motif="{{ chapter.slug }}" aria-hidden="true">
+<svg viewBox="0 0 640 160" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+{% if chapter.roman == 'I' %}
+  <path class="art-faint" d="M30 115H610M70 135H570"/>
+  <g class="art-breathe"><ellipse cx="320" cy="106" rx="165" ry="23"/><ellipse cx="320" cy="106" rx="105" ry="14"/><ellipse cx="320" cy="106" rx="49" ry="6"/></g>
+  <path d="M278 91C281 75 299 64 319 65C341 64 357 75 363 91Z"/><path class="art-faint" d="M295 77Q321 68 346 79"/>
+{% elif chapter.roman == 'II' %}
+  <path class="art-faint" d="M65 133Q170 125 270 133T575 131"/>
+  <g class="art-sway"><path d="M155 130Q154 85 140 44M147 77Q119 73 115 52Q140 53 147 77ZM151 92Q175 84 180 63Q156 67 151 92Z"/></g>
+  <g class="art-sway art-late"><path d="M281 130V60M281 88Q257 86 248 70Q273 68 281 88M281 105Q305 104 314 87Q288 87 281 105"/><circle cx="281" cy="44" r="13"/><path d="M281 19V24M281 64V69M257 44H262M300 44H305M264 27L268 31M294 57L298 61M264 61L268 57M294 31L298 27"/></g>
+  <g class="art-sway art-later"><path d="M404 131Q409 77 431 34M416 81L400 61M422 62L445 52M412 100L435 88"/></g>
+  <path d="M507 132Q506 109 492 98Q510 98 516 117Q523 101 543 100Q537 118 516 122"/>
+{% elif chapter.roman == 'III' %}
+  <path class="art-faint" d="M34 130H606M70 145H570"/>
+  <path d="M96 130V80H224V130M416 130V80H544V130M224 80V51H252V130M388 130V51H416V80M252 51Q320-4 388 51"/>
+  <path d="M274 130V64L310 76V130M330 130V76L366 64V130"/>
+  <g class="art-flow"><path d="M320 142V98M320 92V87"/></g>
+  <g class="art-sway"><path d="M145 130V104M145 115Q126 115 123 99Q141 101 145 115M145 109Q163 106 170 92Q149 92 145 109"/></g>
+  <g class="art-sway art-late"><path d="M496 130V99M496 117Q473 114 469 100Q491 100 496 117M496 106Q511 101 516 86Q500 88 496 106"/></g>
+{% elif chapter.roman == 'IV' %}
+  <path class="art-faint" d="M30 130L139 60L224 130M416 130L506 54L610 130"/>
+  <path d="M205 132L320 14L435 132ZM286 50L307 58L320 44L335 58L355 50M320 44V132M286 132L320 109L355 132"/>
+  <g class="art-drift art-faint"><path d="M48 42H159M78 53H188M455 30H568M483 41H598"/></g>
+  <path d="M81 140H559"/>
+{% elif chapter.roman == 'V' %}
+  <path class="art-faint" d="M45 80H200M440 80H595"/>
+  <circle cx="285" cy="80" r="56"/><circle cx="355" cy="80" r="56"/>
+  <path class="art-breathe" d="M229 80Q285 19 341 80Q285 141 229 80ZM299 80Q355 19 411 80Q355 141 299 80Z"/>
+  <circle cx="320" cy="80" r="7" fill="currentColor" stroke="none"/>
+  <path class="art-faint" d="M320 9V20M320 140V151M204 71V89M436 71V89"/>
+{% elif chapter.roman == 'VI' %}
+  <path d="M238 97Q251 139 320 139Q389 139 402 97ZM248 105Q320 122 392 105M289 142H351"/>
+  <g class="art-float"><path d="M303 71Q286 59 290 42Q309 46 315 62Q324 41 343 39Q343 61 322 71"/><path d="M319 90V65"/></g>
+  <g class="art-float art-late"><ellipse cx="188" cy="68" rx="9" ry="4" transform="rotate(-25 188 68)"/><ellipse cx="453" cy="59" rx="9" ry="4" transform="rotate(25 453 59)"/></g>
+  <path class="art-faint" d="M74 121Q135 100 213 121M427 121Q505 100 566 121M124 139H210M430 139H516"/>
+{% elif chapter.roman == 'VII' %}
+  <path d="M82 87Q320-22 558 87M82 99Q320 2 558 99M99 81V111M152 58V99M205 42V88M263 31V80M320 28V77M377 31V80M435 42V88M488 58V99M541 81V111"/>
+  <path d="M79 83V116M561 83V116"/>
+  <g class="art-water"><path d="M80 126Q140 116 200 126T440 126T560 126M120 145Q180 135 240 145T480 145"/></g>
+{% elif chapter.roman == 'VIII' %}
+  <path d="M259 81H381M280 81V133M360 81V133M166 58V104H231V136M170 103V136M409 136V104H474V58M470 103V136M193 54V95M447 54V95"/>
+  <path class="art-faint" d="M105 140H535"/>
+  <g class="art-float"><path d="M266 32Q295 12 319 32M321 32Q347 12 374 32"/><path d="M277 45Q300 30 319 45M321 45Q341 30 363 45"/></g>
+  <path d="M310 70V59H330V70Z"/>
+{% elif chapter.roman == 'IX' %}
+  <path d="M60 42H173V68H278V94H383V120H580"/>
+  <path class="art-faint" d="M60 55H160V81H265V107H370V133H580"/>
+  <g class="art-flow"><path d="M82 26H149Q188 26 188 54Q188 53 209 53H251Q293 53 293 80Q293 79 314 79H356Q398 79 398 105H554"/></g>
+  <circle cx="105" cy="26" r="4" fill="currentColor" stroke="none"/>
+{% elif chapter.roman == 'X' %}
+  <path class="art-faint" d="M80 139Q320 122 560 139"/>
+  <g class="art-sway"><path d="M300 136Q306 49 379 28M310 91Q291 75 291 54Q312 62 310 91M326 64Q337 44 359 41M345 45Q343 26 351 14M305 113Q325 87 349 88M300 128Q280 106 266 111"/></g>
+  <g class="art-drift art-faint"><path d="M96 44H219Q241 44 241 32Q241 21 229 23M399 68H527M424 82H557"/></g>
+{% elif chapter.roman == 'XI' %}
+  <path d="M95 80H202M226 80H308M332 80H414M438 80H545M214 68V36H426V68M214 92V124H426V92M320 36V68M320 92V124"/>
+  <g class="art-breathe"><circle cx="83" cy="80" r="12"/><circle cx="214" cy="80" r="12"/><circle cx="320" cy="80" r="12"/><circle cx="426" cy="80" r="12"/><circle cx="557" cy="80" r="12"/></g>
+  <g fill="currentColor" stroke="none"><circle cx="214" cy="36" r="3"/><circle cx="426" cy="36" r="3"/><circle cx="214" cy="124" r="3"/><circle cx="426" cy="124" r="3"/></g>
+  <path class="art-flow" d="M226 80H308M332 80H414"/>
+{% elif chapter.roman == 'XII' %}
+  <ellipse cx="320" cy="47" rx="112" ry="22"/><path d="M208 47Q216 128 320 135Q424 128 432 47M289 138H351"/>
+  <path d="M329 26L315 50L335 68L314 89L328 111L318 135"/>
+  <g class="art-breathe"><path d="M311 40L327 45M318 59L334 56M319 77L333 83M315 101L330 96M314 119L328 124" stroke-width="3"/></g>
+  <path class="art-faint" d="M72 139H255M385 139H568"/>
+{% elif chapter.roman == 'XIII' %}
+  <path d="M278 126V49H362V126ZM270 49L320 20L370 49M290 126V138H350V126M320 20V12M278 126H362"/>
+  <g class="art-breathe"><path d="M320 69Q303 86 315 98Q324 106 329 94Q333 85 320 69Z"/><path class="art-faint" d="M304 82H296M344 82H336M320 60V55M292 62L299 69M348 62L341 69"/></g>
+  <path d="M313 103H327V116H313Z"/>
+  <g class="art-sway"><path d="M448 138Q443 98 461 75M449 117Q427 111 425 98Q445 98 449 117M449 104Q470 101 479 85Q457 86 449 104"/></g>
+  <path class="art-faint" d="M95 140H545"/>
+{% else %}
+  <circle class="art-breathe" cx="320" cy="60" r="33"/>
+  <path d="M50 100H590"/>
+  <g class="art-water"><path d="M100 117Q155 107 210 117T430 117T540 117M175 138Q220 128 265 138T445 138"/></g>
+{% endif %}
+</svg>
+</div>

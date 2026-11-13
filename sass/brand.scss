@@ -1,0 +1,8 @@
+/* Exact wordmark type and tanuki artwork from raskell.io. */
+@font-face { font-family: 'Raskell Wordmark'; src: url('fonts/unbounded-wordmark.woff2') format('woff2'); font-weight: 600; font-display: swap; }
+.raskell-wordmark { font-family: 'Raskell Wordmark', sans-serif; font-weight: 600; letter-spacing: -.035em; text-transform: lowercase; line-height: 1; padding-bottom: .08em; }
+.raskell-mark { width: 2.25rem; height: 2.25rem; flex-shrink: 0; }
+.raskell-mark svg { display: block; width: 100%; height: 100%; }
+.raskell-mark .f { display: none; }
+.raskell-mark .f-oo { display: inline; }
+.okinawa-icon { display: inline-block; width: 1.4em; height: 1.4em; margin-inline: .1em .25em; vertical-align: -.3em; }

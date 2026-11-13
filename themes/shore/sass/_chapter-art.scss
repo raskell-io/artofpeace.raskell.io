@@ -1,0 +1,37 @@
+/* A single ink colour, with the same static drawing available without JavaScript. */
+.chapter-art { color: var(--ink); width: 100%; margin: 1.8rem 0 -.5rem; }
+.chapter-art svg { display: block; width: 100%; height: auto; overflow: visible; }
+.chapter-art .art-faint { opacity: .3; }
+.chapter-heading:has(.chapter-art) .chapter-rule { display: none; }
+.chapter-art .art-sway { transform-box: fill-box; transform-origin: 50% 100%; }
+.chapter-art .art-breathe, .chapter-art .art-float { transform-box: fill-box; transform-origin: center; }
+@keyframes ink-sway { 0%, 100% { transform: rotate(-2deg); } 50% { transform: rotate(3deg); } }
+@keyframes ink-breathe { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
+@keyframes ink-float { 0%, 100% { transform: translateY(2px); } 50% { transform: translateY(-5px); } }
+@keyframes ink-drift { 0%, 100% { transform: translateX(-5px); } 50% { transform: translateX(7px); } }
+@keyframes ink-water { 0%, 100% { transform: translateX(-4px) scaleY(.96); } 50% { transform: translateX(4px) scaleY(1.02); } }
+@keyframes ink-flow { to { stroke-dashoffset: -48; } }
+@media screen and (prefers-reduced-motion: no-preference) {
+  :root:not([data-motion='off']) .chapter-art {
+    .art-sway { animation: ink-sway 9s ease-in-out infinite; }
+    .art-breathe { animation: ink-breathe 7s ease-in-out infinite; }
+    .art-float { animation: ink-float 8s ease-in-out infinite; }
+    .art-drift { animation: ink-drift 12s ease-in-out infinite; }
+    .art-water { animation: ink-water 8s ease-in-out infinite; transform-origin: center; }
+    .art-flow { stroke-dasharray: 4 12; animation: ink-flow 8s linear infinite; }
+    .art-late { animation-delay: -3s; }
+    .art-later { animation-delay: -6s; }
+    svg [class] { animation-play-state: paused; }
+    &.art-visible svg [class] { animation-play-state: running; }
+  }
+  :root:not([data-motion='off']) .motion-resting .chapter-art svg [class] { animation-play-state: paused; }
+}
+@media (max-width: 700px) {
+  .chapter-art { margin-top: 1.5rem; }
+  .chapter-art svg { min-height: 92px; }
+  .chapter-art svg path, .chapter-art svg circle, .chapter-art svg ellipse { vector-effect: non-scaling-stroke; stroke-width: 1.1px; }
+}
+@media print {
+  .chapter-art { width: 65%; margin: .5cm 0; break-inside: avoid; }
+  .chapter-art svg { max-height: 28mm; }
+}

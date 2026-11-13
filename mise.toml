@@ -1,0 +1,31 @@
+[tools]
+zola = "0.22.1"
+python = "3.12.13"
+
+[tasks.prepare]
+description = "Generate book data, chapter pages, and machine-readable editions"
+run = "python3 scripts/prepare.py"
+
+[tasks.build]
+description = "Build the complete web book"
+depends = ["prepare"]
+run = "mise exec zola@0.22.1 -- zola build"
+
+[tasks.check]
+description = "Build and verify the manuscript, pages, links, and discovery files"
+depends = ["build"]
+run = ["mise exec zola@0.22.1 -- zola check --skip-external-links", "python3 scripts/check.py"]
+
+[tasks.serve]
+alias = "dev"
+description = "Preview the book with manuscript regeneration and live reload"
+run = "python3 scripts/dev.py"
+
+[tasks.prepare-proposals]
+description = "Generate manuscript data for the visual UX studies"
+run = "python3 scripts/prepare-proposals.py"
+
+[tasks.proposals]
+description = "Serve the visual design proposals at http://127.0.0.1:1119/landing-proposals.html"
+depends = ["prepare-proposals"]
+run = "python3 -m http.server 1119 --bind 127.0.0.1 --directory design"

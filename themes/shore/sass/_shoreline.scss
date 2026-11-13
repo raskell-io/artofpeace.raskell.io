@@ -1,0 +1,162 @@
+/* Shoreline: the invitation and site frame. Reader typography stays in book.scss. */
+.site-header { position: sticky; top: 0; z-index: 10; min-height: 76px; padding: 0 5%; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; background: var(--paper); border-bottom: 1px solid var(--rule); }
+.home-page .site-header { background: var(--sky); border-bottom-color: transparent; }
+.site-header a { text-decoration: none; }
+.book-name { display: inline-flex; align-items: center; gap: 18px; font-size: 1.25rem; font-style: italic; white-space: nowrap; }
+.bay-mark { display: inline-block; position: relative; width: 32px; height: 16px; margin-left: 6px; border: 1px solid var(--accent); border-bottom: 0; border-radius: 32px 32px 0 0; flex-shrink: 0; }
+.bay-mark::after { content: ''; position: absolute; bottom: 0; left: -7px; right: -7px; height: 1px; background: var(--accent); }
+.header-nav { display: flex; align-items: center; gap: 1.9rem; font: .72rem/1.6 var(--sans); }
+.header-nav > a { padding: .5rem 0; }
+.header-nav .read-nav { border-bottom: 1px solid var(--ink); padding-bottom: .2rem; }
+.header-nav .read-nav span { margin-left: .25rem; }
+.settings summary { border: 0; padding: .6rem .2rem; font-size: 1rem; }
+.bay-hero { --shoreline-level: 65%; position: relative; isolation: isolate; overflow: hidden; padding: 65px 8% 42px; min-height: 620px; background: linear-gradient(var(--sky), var(--sky-low) 45%, var(--paper) 88%); }
+.bay-hero::before { content: ''; position: absolute; pointer-events: none; width: 280px; height: 280px; border-radius: 50%; border: 1px solid var(--horizon); right: 10%; top: 80px; z-index: -1; background: radial-gradient(ellipse at 40% 35%, var(--paper), transparent 70%); }
+.bay-hero::after { content: ''; position: absolute; pointer-events: none; top: var(--shoreline-level); height: 1px; background: var(--horizon); width: 100%; left: 0; z-index: -1; }
+.bay-hero h1 { font-size: clamp(65px, 9.5vw, 125px); font-weight: normal; line-height: .95; letter-spacing: -.065em; margin: 52px 0 35px; }
+.bay-hero h1 em { color: var(--accent); }
+.bay-hero .subtitle { font-size: 23px; line-height: 1.4; max-width: 310px; margin: 0 0 20px; }
+.bay-foot { display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; }
+.bay-foot > p { font: .7rem/1.6 var(--sans); max-width: 185px; text-align: right; margin: 0; }
+.bay-hero .primary-link, .footer-invitation .primary-link { padding: 14px 0; font-size: .7rem; gap: 35px; }
+.shore-intro { padding: 55px 8% 65px; display: grid; grid-template-columns: 1fr 1.3fr; gap: 12%; align-items: start; }
+.shore-intro h2 { font-size: 38px; line-height: 1.2; letter-spacing: -.035em; font-weight: normal; margin: 0; }
+.shore-intro p { font-size: 18px; line-height: 1.7; margin: 0; }
+.bay-contents { margin: 0 8% 65px; padding-top: 25px; border-top: 1px solid var(--rule); scroll-margin-top: 1rem; }
+.bay-contents nav { margin-top: 20px; }
+.bay-chapters { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 32px; list-style: none; padding: 0; margin: 0; }
+.bay-chapters a { display: grid; grid-template-columns: 35px 1fr 20px; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--rule); text-decoration: none; font: .75rem/1.6 var(--sans); }
+.bay-chapters .chapter-number { font-size: .63rem; color: var(--muted); }
+.bay-chapters a > span:last-child { text-align: right; }
+.bookend-link { display: flex; gap: 1rem; align-items: baseline; padding: 1rem 0; font: italic .9rem/1.6 var(--serif); text-decoration: none; }
+.bookend-link > span:first-child { width: 35px; color: var(--muted); font: .63rem/1.6 var(--sans); }
+.bookend-link > span:last-child { font: .7rem/1.6 var(--sans); }
+.site-footer { background: #263d38; color: #f5f1e8; padding: 35px 8% 28px; }
+.home-page .site-footer { padding-top: 45px; }
+.site-footer a { text-decoration: none; }
+.site-footer a:hover { color: #fff; }
+.site-footer a:focus-visible { outline-color: #d0e0d5; }
+.footer-invitation { display: flex; justify-content: space-between; gap: 30px; align-items: center; padding-bottom: 45px; }
+.footer-invitation h2 { font-size: 44px; line-height: 1.15; letter-spacing: -.035em; font-weight: normal; margin: 0; }
+.footer-invitation .primary-link { color: #d0e0d5; border-color: #90aba0; flex-shrink: 0; }
+.footer-colophon { display: flex; justify-content: space-between; align-items: baseline; gap: 25px; color: #d0d8cf; font: .7rem/1.6 var(--sans); }
+.footer-invitation + .footer-colophon { border-top: 1px solid #657b71; padding-top: 22px; }
+.footer-colophon p { margin: 0; }
+.footer-colophon p:last-child { text-align: right; }
+.footer-colophon a { text-decoration: underline; }
+.footer-colophon nav { display: flex; gap: 25px; }
+@media (max-width: 700px) {
+  .site-header { min-height: 66px; padding: 0 5%; gap: .8rem; }
+  .book-name { font-size: 1.1rem; gap: 13px; }
+  .bay-mark { width: 25px; height: 13px; }
+  .header-nav { gap: .9rem; font-size: .68rem; }
+  .settings summary { font-size: .95rem; }
+  .bay-hero { padding: 42px 7% 32px; min-height: 610px; }
+  .bay-hero h1 { font-size: clamp(66px, 20.8vw, 100px); margin: 65px 0 35px; }
+  .bay-hero::before { width: 180px; height: 180px; right: -55px; top: 130px; }
+  .bay-hero .subtitle { font-size: 21px; }
+  .bay-foot { display: block; }
+  .bay-foot > p { text-align: left; margin-top: 25px; max-width: none; }
+  .shore-intro { display: block; padding: 40px 7%; }
+  .shore-intro h2 { font-size: 32px; margin-bottom: 25px; }
+  .shore-intro p { font-size: 17px; }
+  .bay-contents { margin: 0 7% 40px; }
+  .bay-chapters { grid-template-columns: 1fr; }
+  .site-footer, .home-page .site-footer { padding: 35px 7% 25px; }
+  .footer-invitation { display: block; padding-bottom: 30px; }
+  .footer-invitation h2 { font-size: 36px; margin-bottom: 22px; }
+  .footer-colophon { flex-direction: column; align-items: flex-start; }
+  .footer-colophon p:last-child { text-align: left; }
+}
+@media (max-width: 360px) {
+  .bay-hero { --shoreline-level: 60%; }
+  .book-name { gap: 9px; }
+  .bay-mark { width: 20px; height: 10px; }
+  .header-nav { gap: .65rem; font-size: .65rem; }
+}
+@media print { .bay-hero { min-height: 0; background: white; } .bay-hero::before, .bay-hero::after { display: none; } }
+
+/* Light on the water: only transforms and opacity animate. */
+.settings-panel .motion-label { display: flex; align-items: center; gap: .6rem; margin: 1.3rem 0 .5rem; font-size: .8rem; }
+@keyframes shore-arrive { from { opacity: .2; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@media screen and (prefers-reduced-motion: no-preference) {
+  :root:not([data-motion='off']) {
+    .bay-hero > .eyebrow { animation: shore-arrive 1.1s ease-out both; }
+    .bay-hero h1 { animation: shore-arrive 1.4s cubic-bezier(.22,.61,.36,1) .1s both; }
+    .bay-hero > .subtitle { animation: shore-arrive 1.2s ease-out .25s both; }
+    .bay-foot { animation: shore-arrive 1.2s ease-out .4s both; }
+    .home-page .primary-link span, .bay-chapters a > span:last-child { transition: transform .6s ease; }
+    .home-page .primary-link:hover span, .home-page .primary-link:focus-visible span { transform: translate(3px, -3px); }
+    .bay-chapters a:hover > span:last-child, .bay-chapters a:focus-visible > span:last-child { transform: translate(3px, -2px); }
+  }
+  :root:not([data-motion='off']) .home-page .bay-resting::before,
+  :root:not([data-motion='off']) .home-page .bay-resting::after,
+  :root:not([data-motion='off']) .motion-resting .bay-hero::before,
+  :root:not([data-motion='off']) .motion-resting .bay-hero::after { animation-play-state: paused; }
+}
+@media print {
+  .home-page .shore-intro, .home-page .bay-contents, .home-page .footer-invitation { opacity: 1 !important; transform: none !important; }
+}
+
+/* The cover is a moving bay, with the paper fading over its left bank for the title. */
+.bay-water { position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: .94; mask-image: linear-gradient(90deg, transparent 5%, #00000010 27%, #000000c9 59%, #000 84%); }
+.bay-water-canvas, .bay-water-still { display: block; position: absolute; inset: 0; width: 100%; height: 100%; }
+.bay-water.water-ready .bay-water-still { visibility: hidden; }
+.bay-hero::before { width: 220px; height: 220px; top: 40px; right: 13%; z-index: -2; }
+.bay-hero::after { display: none; }
+@media (max-width: 700px) {
+  .bay-water { mask-image: linear-gradient(90deg, transparent, #00000028 30%, #000000ad 72%, #000); opacity: .8; }
+  .bay-hero::before { width: 155px; height: 155px; right: -35px; top: 90px; }
+}
+@media print { .bay-water { display: none; } }
+
+/* Author identity and the fuller Raskell-style directory. */
+.site-header { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 2rem; }
+.book-name { display: block; font: 1.05rem/1.4 var(--serif); }
+.author-brand { display: inline-flex; align-items: center; gap: .6rem; width: fit-content; font: 600 1.6rem/1 var(--sans); text-decoration: none; }
+.header-brand { justify-self: end; }
+.site-footer { position: relative; isolation: isolate; overflow: hidden; padding: 55px 8% 30px; border-top: 2px solid #a6bbaa; background: radial-gradient(ellipse at 0% 100%, #b8a27318, transparent 55%), radial-gradient(ellipse at 100% 100%, #80c5bd12, transparent 55%), #263d38; }
+.home-page .site-footer { padding-top: 50px; }
+.footer-directory { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: clamp(3rem, 6vw, 6rem); padding: 55px 0 60px; }
+.footer-invitation + .footer-directory { border-top: 1px solid #657b71; }
+.footer-author { display: flex; flex-direction: column; align-items: flex-start; }
+.footer-brand { font-size: 1.7rem; margin-bottom: 24px; }
+.footer-about { font: 1rem/1.7 var(--serif); color: #dbe3d8; }
+.footer-about p { margin: 0 0 1em; }
+.footer-location { display: flex; flex-wrap: wrap; align-items: baseline; gap: .4rem .6rem; margin: auto 0 0; padding-top: 25px; font: .7rem/1.6 var(--sans); }
+.footer-location > span:first-child { flex-basis: 100%; color: #aebfb0; }
+.footer-columns { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem; }
+.footer-column { display: flex; flex-direction: column; gap: 2.5rem; }
+.footer-group { display: flex; flex-direction: column; align-items: flex-start; gap: .65rem; font: .82rem/1.6 var(--sans); }
+.footer-group h2 { font: .65rem/1.6 var(--sans); text-transform: uppercase; letter-spacing: .12em; color: #aec2b3; margin: 0 0 .55rem; }
+.footer-group a { display: inline-flex; align-items: baseline; gap: .5rem; }
+.footer-group a:hover { text-decoration: underline; }
+.footer-external { color: #9cb7a8; font-size: .7rem; }
+.footer-colophon { border-top: 1px solid #657b71; padding-top: 25px; align-items: center; font-size: .68rem; }
+.footer-colophon > a { text-decoration: none; }
+@media (max-width: 1000px) {
+  .site-header { gap: 1.5rem; }
+  .header-nav { gap: 1.3rem; }
+  .footer-directory { grid-template-columns: 1fr; gap: 35px; }
+  .footer-about { max-width: 520px; }
+}
+@media (max-width: 760px) {
+  .site-header { grid-template-columns: 1fr auto; padding: 16px 5% 10px; gap: 10px 15px; }
+  .book-name { font-size: .95rem; }
+  .author-brand.header-brand { font-size: 1.25rem; gap: .4rem; grid-column: 2; grid-row: 1; }
+  .header-brand .raskell-mark { width: 1.8rem; height: 1.8rem; }
+  .header-nav { grid-column: 1 / -1; grid-row: 2; justify-content: flex-end; gap: 1.5rem; font-size: .72rem; }
+  .header-nav > a { padding: .35rem 0; }
+  .header-nav .settings summary { padding: .35rem .2rem; }
+  .footer-directory { padding: 35px 0 40px; }
+  .site-footer, .home-page .site-footer { padding: 35px 7% 25px; }
+  .footer-columns { grid-template-columns: 1fr 1fr; gap: 2.5rem 1.5rem; }
+  .footer-column:last-child { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .footer-colophon { align-items: flex-start; gap: 12px; }
+}
+@media (max-width: 360px) {
+  .book-name { font-size: .85rem; }
+  .author-brand.header-brand { font-size: 1.1rem; }
+  .header-brand .raskell-mark { width: 1.6rem; height: 1.6rem; }
+  .footer-group { font-size: .77rem; }
+}

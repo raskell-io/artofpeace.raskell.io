@@ -1,0 +1,2 @@
+{% extends "base.html" %}
+{% block content %}<section class="reader about-page"><header class="chapter-heading"><p class="eyebrow">Page not found</p><h1>A different path.</h1></header><div class="prose"><p>This page is not part of the book.</p><p><a href="{{ config.base_url }}">Return to the title page</a> or <a href="{{ get_url(path='read/', trailing_slash=true) }}">begin reading</a>.</p></div></section>{% endblock content %}

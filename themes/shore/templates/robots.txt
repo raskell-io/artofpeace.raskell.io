@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+Sitemap: {{ get_url(path="sitemap.xml") }}
+# Plain-language discovery: {{ get_url(path="llms.txt") }}
+

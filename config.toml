@@ -1,0 +1,67 @@
+base_url = "https://artofpeace.raskell.io"
+title = "The Art of Peace"
+description = "On living together without thinking alike. A short book by raskell about freedom, disagreement, and the practice of peace."
+default_language = "en"
+theme = "shore"
+compile_sass = true
+build_search_index = false
+generate_feeds = false
+
+[markdown]
+smart_punctuation = true
+
+[extra]
+author = "raskell"
+author_url = "https://raskell.io/"
+author_id = "https://raskell.io/#person"
+edition = "First manuscript"
+subtitle = "On living together without thinking alike."
+
+brand_styles = "brand.css"
+footer_about = """
+This book began with a morning swim in Nago Bay. I write about peace that leaves room for independent thought, disagreement, and care for what we share.
+
+Raskell is my corner of the web: writing, experiments, and the things I build. The name is rascal × Haskell × Raffael.
+"""
+footer_columns = [
+  [
+    { title = "The book", items = [
+      { name = "Title page", url = "/" },
+      { name = "Read continuously", url = "/read/" },
+      { name = "All chapters", url = "/#contents" },
+      { name = "About the manuscript", url = "/about/" },
+    ] },
+    { title = "Keep a copy", items = [
+      { name = "Plain text / Markdown", url = "/book.md" },
+      { name = "For machines", url = "/llms.txt" },
+      { name = "Sitemap", url = "/sitemap.xml" },
+    ] },
+  ],
+  [
+    { title = "Explore Raskell", items = [
+      { name = "Articles", url = "https://raskell.io/articles/" },
+      { name = "Notes", url = "https://raskell.io/notes/" },
+      { name = "Reading log", url = "https://raskell.io/reading/" },
+      { name = "The map", url = "https://raskell.io/map/" },
+    ] },
+    { title = "Building", items = [
+      { name = "Arcanist.sh", url = "https://arcanist.sh/" },
+      { name = "Archipelag.io", url = "https://archipelag.io/" },
+      { name = "Zentinel", url = "https://zentinelproxy.io/" },
+      { name = "Cyanea", url = "https://cyanea.bio/" },
+    ] },
+  ],
+  [
+    { title = "The author", items = [
+      { name = "About Raffael", url = "https://raskell.io/about/" },
+      { name = "Projects", url = "https://raskell.io/projects/" },
+      { name = "Speaking", url = "https://raskell.io/speaking/" },
+      { name = "Get in touch", url = "https://raskell.io/about/#contact" },
+    ] },
+    { title = "Elsewhere", items = [
+      { name = "GitHub", url = "https://github.com/raffaelschneider" },
+      { name = "LinkedIn", url = "https://ch.linkedin.com/in/raffael-e-schneider" },
+      { name = "X", url = "https://x.com/raskelll" },
+    ] },
+  ],
+]

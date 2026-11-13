@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>The Art of Peace · Four reading experiences</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23f5f1e8'/%3E%3Cpath d='M18 34a14 14 0 0 1 28 0M9 35h46' fill='none' stroke='%2335665f' stroke-width='2.5'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="proposals.css">
+  <script src="passages.js" defer></script>
+  <script src="proposals.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#studies">Skip to the proposals</a>
+  <header class="review-header"><a href="#top" class="review-brand">The Art of Peace <span>/ Design studies</span></a><a href="landing-proposals.html">New: landing page, header, and footer <span aria-hidden="true">↗</span></a></header>
+  <main id="top">
+    <section class="introduction">
+      <div><p class="eyebrow">Four proposals · One visual language</p><h1>A little less interface.<br>A little more <em>book.</em></h1></div>
+      <div class="intro-note"><span class="horizon-mark" aria-hidden="true"></span><p>The paper, the ink, the quiet horizon stay. These studies explore what it feels like to find your place, follow a question, hold two thoughts together, or leave one of your own.</p><p class="small">The examples below are interactive. Try them.</p></div>
+    </section>
+    <div class="review-toolbar">
+      <nav aria-label="Design proposals"><a href="#open-book"><span>01</span> Open book</a><a href="#paths"><span>02</span> Paths</a><a href="#conversation"><span>03</span> Conversation</a><a href="#margin"><span>04</span> Margin</a></nav>
+      <div class="view-switch" role="group" aria-label="Preview width"><button type="button" data-view="desktop" aria-pressed="true">Desktop</button><button type="button" data-view="mobile" aria-pressed="false">Phone</button></div>
+    </div>
+    <noscript><p class="no-script">Enable JavaScript to try the working examples. The design descriptions and comparison remain available below.</p></noscript>
+    <div id="studies" class="studies" data-view="desktop">
+      <section class="study" id="open-book" aria-labelledby="title-one">
+        <header class="study-heading"><span class="study-number">01</span><div><p class="eyebrow">A volume to inhabit</p><h2 id="title-one">The open book</h2><p>A place in the book becomes a sentence you remember.</p></div><span class="effort">A gentle evolution</span></header>
+        <div class="preview-mat">
+          <div class="preview" id="demo-one">
+            <div class="book-top"><span class="book-wordmark">The Art of Peace</span><button type="button" id="return-place" class="quiet-button" hidden>Return to III.5 <span aria-hidden="true">↗</span></button><span class="book-author">raskell</span></div>
+            <div class="locator" id="chapter-locator" aria-hidden="true"></div>
+            <div class="open-layout">
+              <nav id="chapter-rail" class="chapter-rail" aria-label="Preview chapters"></nav>
+              <div class="open-reader">
+                <label class="mobile-chapter">Your chapter<select id="chapter-select" aria-label="Choose a preview chapter"></select></label>
+                <p class="eyebrow" id="open-chapter-label">Chapter III</p><h3 id="open-chapter-title">On boundaries</h3><span class="short-rule" aria-hidden="true"></span>
+                <div id="open-passages"></div>
+                <button type="button" class="next-leaf" id="next-chapter"><span class="eyebrow">Continue with On strength</span><span class="next-title">Cultivate enough strength to protect a refusal.</span><span aria-hidden="true">↗</span></button>
+                <p class="feedback" id="place-status" role="status"></p>
+              </div>
+            </div>
+            <div class="book-bottom"><span>A quiet place to read</span><span id="chapter-position">III of XIII</span></div>
+          </div>
+        </div>
+        <div class="study-notes"><div><h4>The gesture</h4><p>A chapter rail gives the book a shape. Keep an exact passage, then return through its first sentence.</p></div><div><h4>Try it</h4><p>Keep III.5, choose a different chapter, then use “Return to III.5”. Switch to Phone to see the rail become a chapter selector.</p></div><div><h4>The tradeoff</h4><p>The smallest change to the current reader. It feels more like a volume, with less change to how its ideas are encountered.</p></div></div>
+      </section>
+
+      <section class="study" id="paths" aria-labelledby="title-two">
+        <header class="study-heading"><span class="study-number">02</span><div><p class="eyebrow">A manual to consult</p><h2 id="title-two">Ways through the book</h2><p>Begin with a question. Find a different route through the chapters.</p></div><span class="effort">An editorial layer</span></header>
+        <div class="preview-mat">
+          <div class="preview" id="demo-two">
+            <div class="book-top"><span class="book-wordmark">The Art of Peace</span><span class="book-author">Find a way in</span></div>
+            <div class="paths-layout">
+              <aside class="path-index"><p class="eyebrow">What brings you here?</p><div id="path-choices"></div><p class="path-footnote">A few passages to consider.<br>A place to begin thinking.</p></aside>
+              <div class="path-reader"><p class="eyebrow" id="path-count">A path in four passages</p><h3 id="path-title">Before a difficult conversation</h3><nav id="path-steps" class="path-steps" aria-label="Passages on this path"></nav><article class="path-passage"><div class="reference-line"><span id="path-reference" class="reference">VIII.1</span><span id="path-chapter" class="small">On diplomacy</span></div><p id="path-body" class="book-prose"></p></article><div class="path-bridge"><p class="eyebrow">A thought to carry forward</p><p id="path-bridge-text"></p></div><div class="path-navigation"><button type="button" id="path-back" class="quiet-button">← Previous passage</button><button type="button" id="path-next" class="underlined-button">Continue to V.4 <span aria-hidden="true">→</span></button></div></div>
+            </div>
+            <div class="book-bottom"><span>Selected passages, in conversation with your question</span><span id="path-position">1 / 4</span></div>
+          </div>
+        </div>
+        <div class="study-notes"><div><h4>The gesture</h4><p>A small, authored sequence crosses chapter boundaries. Each step offers something to consider before the next.</p></div><div><h4>Try it</h4><p>Choose a situation on the left. Follow the path, or jump directly to a numbered passage. All four paths work.</p></div><div><h4>The tradeoff</h4><p>Useful when returning with a question. The paths need careful editing so the book does not start promising simple remedies.</p></div></div>
+      </section>
+
+      <section class="study" id="conversation" aria-labelledby="title-three">
+        <header class="study-heading"><span class="study-number">03</span><div><p class="eyebrow">Principles to examine together</p><h2 id="title-three">Passages in conversation</h2><p>Give a thought enough room to meet its necessary companion.</p></div><span class="recommendation-tag">Recommended direction</span></header>
+        <div class="preview-mat">
+          <div class="preview" id="demo-three">
+            <div class="book-top"><span class="book-wordmark">The Art of Peace</span><span class="book-author">Read beside</span></div>
+            <div class="pair-picker" role="group" aria-label="Choose a passage conversation"><button type="button" data-pair="0" aria-pressed="true">Boundaries</button><button type="button" data-pair="1" aria-pressed="false">Understanding</button><button type="button" data-pair="2" aria-pressed="false">Humility</button></div>
+            <div class="conversation-layout" id="conversation-layout">
+              <article class="primary-thought"><p class="eyebrow" id="pair-chapter-label">Chapter III</p><h3 id="pair-chapter-title">On boundaries</h3><span class="short-rule" aria-hidden="true"></span><span class="reference" id="pair-first-reference">III.2</span><p class="book-prose" id="pair-first-body"></p><button type="button" class="read-beside" id="pair-toggle" aria-expanded="true" aria-controls="companion"><span class="tiny-branch" aria-hidden="true">↔</span><span id="pair-trigger-text">Read beside III.4</span></button></article>
+              <aside class="companion" id="companion" aria-label="Companion passage"><div class="companion-top"><p class="eyebrow">A second thought</p><button type="button" class="close-button" id="pair-close" aria-label="Close companion passage">×</button></div><h4 id="pair-second-title">When conduct becomes threatening</h4><span class="reference" id="pair-second-reference">III.4</span><p class="book-prose" id="pair-second-body"></p><div class="pair-note"><p class="eyebrow">Why these belong together</p><p id="pair-commentary"></p></div></aside>
+            </div>
+            <div class="book-bottom"><span>Room for more than one concern</span><span id="pair-footer">III.2 ↔ III.4</span></div>
+          </div>
+        </div>
+        <div class="study-notes"><div><h4>The gesture</h4><p>Open a related passage in the margin. The connection gives a principle its limits without interrupting the original reading.</p></div><div><h4>Try it</h4><p>Close the companion, then open it from “Read beside”. Explore the other two pairings. On Phone, the margin becomes an inline section.</p></div><div><h4>The tradeoff</h4><p>The most distinctive expression of this book. Keep the connections few so the reader has room to interpret the prose.</p></div></div>
+      </section>
+
+      <section class="study" id="margin" aria-labelledby="title-four">
+        <header class="study-heading"><span class="study-number">04</span><div><p class="eyebrow">A personal response</p><h2 id="title-four">The reader’s margin</h2><p>Keep a sentence. Leave a question. Disagreement belongs here too.</p></div><span class="effort">A more personal edition</span></header>
+        <div class="preview-mat">
+          <div class="preview" id="demo-four">
+            <div class="book-top"><span class="book-wordmark">The Art of Peace</span><span class="book-author" id="margin-count">Your margin · 0</span></div>
+            <div class="margin-layout">
+              <div class="margin-reading"><p class="eyebrow">Two places to begin</p><h3>A thought of your own.</h3><div id="margin-passages"></div></div>
+              <aside class="notebook"><div class="notebook-heading"><h4>Your margin</h4><span aria-hidden="true">⌑</span></div><p class="notebook-caption">This study keeps notes in this tab only.<br>They disappear when you reload.</p><div id="margin-empty"><span class="blank-lines" aria-hidden="true"></span><p>A space for an<br><em>unfinished thought.</em></p></div><form id="note-form" hidden><label for="note-text">What would you add, question, or try?</label><span class="reference" id="note-reference">IV.4</span><textarea id="note-text" rows="4" maxlength="2000" placeholder="Begin anywhere…" required></textarea><div class="form-actions"><button type="submit" class="underlined-button">Keep this thought ↗</button><button type="button" id="note-cancel" class="quiet-button">Cancel</button></div></form><div id="saved-notes"></div><div class="notebook-actions"><button type="button" class="quiet-button" id="export-notes" disabled>Export your margin ↓</button><button type="button" class="quiet-button" id="undo-note" hidden>Undo removal</button></div><p class="feedback" id="note-status" role="status"></p></aside>
+            </div>
+            <div class="book-bottom"><span>Keep what helps. Question what does not.</span><button type="button" class="quiet-button" id="reset-margin">Clear this study</button></div>
+          </div>
+        </div>
+        <div class="study-notes"><div><h4>The gesture</h4><p>The reader’s own words sit beside the author’s. Kept passages and questions become a personal route back into the book.</p></div><div><h4>Try it</h4><p>Keep a passage, write a note, edit it, or remove it and undo. Export creates a text file containing your entries.</p></div><div><h4>The tradeoff</h4><p>Personal notes need careful handling of storage, export, and changing editions. This is the largest addition to the reader.</p></div></div>
+      </section>
+    </div>
+
+    <section class="comparison" id="comparison"><p class="eyebrow">A decision about the reading experience</p><h2>Which kind of book<br>do you want to open?</h2><div class="comparison-grid"><a href="#open-book"><span>01</span><h3>A volume<br>to inhabit.</h3><p>Orientation, continuity,<br>a sentence to return to.</p><span class="comparison-arrow" aria-hidden="true">↗</span></a><a href="#paths"><span>02</span><h3>A manual<br>to consult.</h3><p>A few useful passages<br>when a question arises.</p><span class="comparison-arrow" aria-hidden="true">↗</span></a><a href="#conversation" class="recommended"><span>03 · Recommended</span><h3>Thoughts<br>to hold together.</h3><p>A principle beside<br>the thought that qualifies it.</p><span class="comparison-arrow" aria-hidden="true">↗</span></a><a href="#margin"><span>04</span><h3>A margin<br>to make your own.</h3><p>Questions, objections,<br>and unfinished thoughts.</p><span class="comparison-arrow" aria-hidden="true">↗</span></a></div><div class="final-note"><span class="horizon-mark" aria-hidden="true"></span><div><p>I would begin with <strong>03</strong>, and borrow the quiet orientation and explicit place keeping of <strong>01</strong>.</p><p class="small">One distinctive interaction, with enough space left for the book.</p></div></div></section>
+  </main>
+  <footer class="review-footer"><span>The Art of Peace / A visual UX review</span><span>Four working studies · Original manuscript text</span><a href="#top">Back to the beginning ↑</a></footer>
+</body>
+</html>

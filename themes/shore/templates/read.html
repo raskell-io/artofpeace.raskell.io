@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="reader continuous-reader">
+  <h1 class="reader-title sr-only">{{ config.title }}</h1>
+  {% for chapter in book_data.sections %}
+    {{ book::chapter(chapter=chapter, continuous=true) }}
+  {% endfor %}
+  <div class="book-finish"><p class="eyebrow">The end, for now</p><p>Keep what helps. Question what does not.</p><a class="quiet-link" href="{{ get_url(path='about/', trailing_slash=true) }}">About this manuscript <span aria-hidden="true">↗</span></a><button type="button" class="text-button js-only" data-print>Print this book</button></div>
+</div>
+{% endblock content %}

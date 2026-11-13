@@ -1,0 +1,28 @@
+{% macro contents(sections, compact=false) %}
+<ol class="contents-list{% if compact %} compact{% endif %}">
+{% for chapter in sections %}
+<li{% if not chapter.roman %} class="bookend"{% endif %}><a href="{{ get_url(path=chapter.slug ~ '/', trailing_slash=true) }}"><span class="chapter-number">{% if chapter.roman %}{{ chapter.roman }}{% elif loop.first %}Opening{% else %}Closing{% endif %}</span><span>{{ chapter.title }}</span><span class="contents-arrow" aria-hidden="true">↗</span></a></li>
+{% endfor %}
+</ol>
+{% endmacro contents %}
+
+{% macro chapter(chapter, continuous=false) %}
+<section class="book-chapter{% if not chapter.roman %} bookend-text{% endif %}" id="{{ chapter.slug }}" data-reading-anchor data-title="{{ chapter.title }}">
+  <header class="chapter-heading">
+    <p class="eyebrow">{% if chapter.roman %}Chapter {{ chapter.roman }}{% elif chapter.slug == 'before-the-shore' %}An opening{% else %}A closing{% endif %}</p>
+    {% if continuous %}<h2>{{ chapter.title }}</h2>{% else %}<h1>{{ chapter.title }}</h1>{% endif %}
+    <span class="chapter-rule" aria-hidden="true"></span>
+    {% include "partials/chapter-art.html" %}
+  </header>
+  {% if chapter.roman %}
+    {% for passage in chapter.passages %}
+    {% set passage_id = 'p' ~ passage.number %}
+    {% if continuous %}{% set roman_id = chapter.roman | lower %}{% set passage_id = roman_id ~ '-' ~ passage.number %}{% endif %}
+    <section class="passage" id="{{ passage_id }}" aria-label="Passage {{ chapter.roman }}.{{ passage.number }}" data-reading-anchor data-title="{{ chapter.title }}">
+      <a class="passage-number" href="#{{ passage_id }}" aria-label="Link to passage {{ chapter.roman }}.{{ passage.number }}">{{ chapter.roman }}.{{ passage.number }}</a>
+      <div class="prose">{{ passage.body | markdown | safe }}</div>
+    </section>
+    {% endfor %}
+  {% else %}<div class="prose opening-prose">{{ chapter.body | markdown | safe }}</div>{% endif %}
+</section>
+{% endmacro chapter %}

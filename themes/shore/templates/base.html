@@ -1,0 +1,94 @@
+{% import "macros.html" as book %}
+{% set book_data = load_data(path="data/book.json") %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  {% set page_title = config.title %}
+  {% if page is defined %}{% set page_title = page.title ~ " · " ~ config.title %}{% endif %}
+  <title>{{ page_title }}</title>
+  <meta name="description" content="{{ config.description }}">
+  {% if current_url is defined %}<link rel="canonical" href="{{ current_url }}">{% endif %}
+  <link rel="icon" type="image/svg+xml" href="{{ get_url(path='favicon.svg') }}">
+  <link rel="stylesheet" href="{{ get_url(path='book.css', cachebust=true) }}">
+  {% if config.extra.brand_styles %}<link rel="stylesheet" href="{{ get_url(path=config.extra.brand_styles, cachebust=true) }}">{% endif %}
+  <link rel="alternate" type="text/markdown" href="{{ get_url(path='book.md') }}" title="Complete manuscript">
+  <meta property="og:type" content="book">
+  <meta property="og:title" content="{{ page_title }}">
+  <meta property="og:description" content="{{ config.description }}">
+  <meta property="og:image" content="{{ get_url(path='social.png') }}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  {% if current_url is defined %}<meta property="og:url" content="{{ current_url }}">{% endif %}
+  <meta name="twitter:card" content="summary_large_image">
+  <script src="{{ get_url(path='preferences.js', cachebust=true) }}"></script>
+  <script src="{{ get_url(path='book.js', cachebust=true) }}" defer></script>
+  <script src="{{ get_url(path='motion.js', cachebust=true) }}" defer></script>
+  {% block page_scripts %}{% endblock page_scripts %}
+  {% set book_id = config.base_url ~ '/#book' %}
+  {% set book_url = config.base_url ~ '/' %}
+  {% set book_image = get_url(path='social.png') %}
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Book","@id":{{ book_id | json_encode() | safe }},"name":{{ config.title | json_encode() | safe }},"description":{{ config.description | json_encode() | safe }},"url":{{ book_url | json_encode() | safe }},"inLanguage":"en","bookFormat":"https://schema.org/EBook","author":{"@type":"Person","@id":{{ config.extra.author_id | json_encode() | safe }},"name":"Raffael Schneider","alternateName":"raskell","url":{{ config.extra.author_url | json_encode() | safe }}},"image":{{ book_image | json_encode() | safe }}}</script>
+</head>
+<body class="{% block body_class %}{% endblock body_class %}">
+  <a class="skip-link" href="#main">Skip to text</a>
+  <header class="site-header">
+    <a class="book-name" href="{{ config.base_url }}">{{ config.title }}</a>
+    <nav class="header-nav" aria-label="Book navigation">
+      {% block contents_link %}<a href="{{ config.base_url }}/#contents" data-open-contents>Contents</a>{% endblock contents_link %}
+      <a href="{{ get_url(path='about/', trailing_slash=true) }}">About</a>
+      <a href="{{ get_url(path='read/', trailing_slash=true) }}" class="read-nav">Read <span aria-hidden="true">↗</span></a>
+      <details class="settings js-only">
+        <summary aria-label="Reading settings">Aa</summary>
+        <div class="settings-panel">
+          <p class="eyebrow">Make yourself comfortable</p>
+          <label for="text-size">Text size</label>
+          <select id="text-size"><option value="normal">Standard</option><option value="large">Larger</option><option value="largest">Largest</option></select>
+          <label for="appearance">Appearance</label>
+          <select id="appearance"><option value="system">Follow device</option><option value="light">Paper</option><option value="dark">Night</option></select>
+          <label class="motion-label"><input type="checkbox" id="gentle-motion" checked> Gentle motion</label><p class="settings-note" id="motion-note">Follows your device’s reduced-motion setting.</p>
+          <label class="remember-label"><input type="checkbox" id="remember"> Remember my place</label>
+          <p class="settings-note">Save your reading position only in this browser.</p>
+          <button type="button" id="clear-place" class="text-button">Clear saved place</button>
+          <p id="settings-status" class="settings-note" role="status"></p>
+        </div>
+      </details>
+    </nav>
+    <a class="author-brand header-brand" href="{{ config.extra.author_url }}" rel="author" aria-label="{{ config.extra.author }} · Author’s website">{% set brand_id = "raskell-header" %}{% include "partials/author-brand.html" %}</a>
+  </header>
+  <div class="reading-progress" aria-hidden="true"><span></span></div>
+  <main id="main" tabindex="-1">{% block content %}{% endblock content %}</main>
+
+  <footer class="site-footer">
+    {% block footer_invitation %}{% endblock footer_invitation %}
+    <div class="footer-directory">
+      <div class="footer-author">
+        <a class="author-brand footer-brand" href="{{ config.extra.author_url }}" rel="author" aria-label="{{ config.extra.author }} · Author’s website">{% set brand_id = "raskell-footer" %}{% include "partials/author-brand.html" %}</a>
+        <div class="footer-about">{{ config.extra.footer_about | default(value=config.description) | markdown | safe }}</div>
+        <p class="footer-location"><span>You are here</span><a href="{{ config.extra.author_url }}">Raskell</a><span aria-hidden="true">/</span><a href="{{ config.base_url }}">{{ config.title }}</a></p>
+      </div>
+      <div class="footer-columns">
+        {% for column in config.extra.footer_columns %}<div class="footer-column">
+          {% for group in column %}<nav class="footer-group" aria-label="{{ group.title }}"><h2>{{ group.title }}</h2>
+            {% for item in group.items %}{% set href = item.url %}{% set external = href is starting_with("https://") %}{% if not external %}{% set href = get_url(path=item.url, trailing_slash=item.url is ending_with("/")) %}{% endif %}
+            <a href="{{ href }}">{{ item.name }}{% if external %}<span class="footer-external" aria-hidden="true">↗</span>{% endif %}</a>
+            {% endfor %}
+          </nav>{% endfor %}
+        </div>{% endfor %}
+      </div>
+    </div>
+    <div class="footer-colophon">
+      <p>{% block footer_origin %}A book by {{ config.extra.author }}{% endblock footer_origin %}</p>
+      <a href="#main">Back to the beginning <span aria-hidden="true">↑</span></a>
+    </div>
+  </footer>
+  <dialog id="contents-dialog" aria-labelledby="contents-title">
+    <div class="dialog-heading"><h2 id="contents-title">Contents</h2><form method="dialog"><button aria-label="Close contents">Close <span aria-hidden="true">×</span></button></form></div>
+    <p class="dialog-description">Thirteen chapters on the practice of peace.</p>
+    <nav aria-label="Chapters">{{ book::contents(sections=book_data.sections, compact=true) }}</nav>
+    <a class="dialog-read-all" href="{{ get_url(path='read/', trailing_slash=true) }}">Read as one continuous book <span aria-hidden="true">↗</span></a>
+  </dialog>
+</body>
+</html>
