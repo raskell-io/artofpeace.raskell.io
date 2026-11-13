@@ -59,6 +59,7 @@ for path, page in pages.items():
     graph = page.schema[1]["@graph"]
     assert graph[0]["@id"] == base + "/#book" and len(graph[0]["hasPart"]) == 15, f"{path}: book parts missing"
     assert graph[0]["datePublished"], f"{path}: publication date missing"
+    assert graph[0]["license"].startswith("https://creativecommons.org/licenses/"), f"{path}: licence missing"
     route_slug = str(path.relative_to(PUBLIC).parent)
     if any(part["url"] == f"{base}/{route_slug}/" for part in graph[0]["hasPart"]):
         assert [node["@type"] for node in graph[1:]] == ["Chapter", "BreadcrumbList"], f"{path}: chapter metadata missing"
@@ -105,6 +106,7 @@ assert sitemap.count("<lastmod>") == sitemap.count("<loc>") == 18, "sitemap: exp
 assert (PUBLIC / "build.txt").read_text().strip(), "build.txt: commit stamp missing"
 assert any(re.fullmatch(r"[0-9a-f]{32}\.txt", p.name) for p in PUBLIC.glob("*.txt")), "IndexNow key file missing"
 assert "## Contents" in (PUBLIC / "llms.txt").read_text()
+assert "## Licence" in (PUBLIC / "llms.txt").read_text()
 assert (PUBLIC / "social.png").read_bytes().startswith(b"\x89PNG\r\n\x1a\n")
 for path in ROOT.glob("themes/shore/static/*.js"):
     assert path.stat().st_size < 16000, f"Unexpectedly large script: {path}"

@@ -52,6 +52,7 @@ def main():
     config = tomllib.loads((ROOT / "config.toml").read_text())
     base = config["base_url"].rstrip("/")
     source, sections = parse_manuscript()
+    edition = tomllib.loads((ROOT / "data/edition.toml").read_text())
     write("data/book.json", json.dumps({"sections": sections, "passage_count": 104}, ensure_ascii=False, indent=2) + "\n")
     generated = {"_index.md", "read.md", "about.md"}
     write("content/_index.md", frontmatter("The Art of Peace", "index.html", description=config["description"]))
@@ -71,7 +72,10 @@ def main():
     write("static/llms.txt", f"# The Art of Peace\n\n> {config['extra']['subtitle']}\n\n"
           f"By {config['extra']['author']}. First manuscript. Original philosophical prose about preserving peace among people who remain free to disagree.\n\n"
           f"## Editions\n\n- [Complete web book]({base}/read/)\n- [Markdown manuscript]({base}/book.md)\n"
-          f"- [Full text]({base}/llms-full.txt)\n- [About the book]({base}/about/)\n\n## Contents\n\n{links}\n")
+          f"- [Full text]({base}/llms-full.txt)\n- [About the book]({base}/about/)\n\n## Licence\n\n"
+          f"The text is © {edition['published'][:4]} {config['extra']['author']}, licensed [{edition['licence']}]({edition['licence_url']}): "
+          f"share it unchanged, with credit and a link to {base}/, for non-commercial purposes. "
+          f"Translations, adaptations, and commercial use need the author's permission.\n\n## Contents\n\n{links}\n")
     print(f"Prepared {len(sections)} sections and 104 passages from manuscript.md")
 
 
