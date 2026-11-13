@@ -112,7 +112,7 @@
 
 /* Author identity and the fuller Raskell-style directory. */
 .site-header { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 2rem; }
-.book-name { display: block; font: 1.05rem/1.4 var(--serif); }
+.book-name { display: block; font: 1.5rem/1.4 var(--serif); }
 .author-brand { display: inline-flex; align-items: center; gap: .6rem; width: fit-content; font: 600 1.6rem/1 var(--sans); text-decoration: none; }
 .header-brand { justify-self: end; }
 .site-footer { position: relative; isolation: isolate; overflow: hidden; padding: 55px 8% 30px; border-top: 2px solid #a6bbaa; background: radial-gradient(ellipse at 0% 100%, #b8a27318, transparent 55%), radial-gradient(ellipse at 100% 100%, #80c5bd12, transparent 55%), #263d38; }
@@ -142,7 +142,7 @@
 }
 @media (max-width: 760px) {
   .site-header { grid-template-columns: 1fr auto; padding: 16px 5% 10px; gap: 10px 15px; }
-  .book-name { font-size: .95rem; }
+  .book-name { font-size: 1.2rem; }
   .author-brand.header-brand { font-size: 1.25rem; gap: .4rem; grid-column: 2; grid-row: 1; }
   .header-brand .raskell-mark { width: 1.8rem; height: 1.8rem; }
   .header-nav { grid-column: 1 / -1; grid-row: 2; justify-content: flex-end; gap: 1.5rem; font-size: .72rem; }
@@ -155,7 +155,7 @@
   .footer-colophon { align-items: flex-start; gap: 12px; }
 }
 @media (max-width: 360px) {
-  .book-name { font-size: .85rem; }
+  .book-name { font-size: 1.1rem; }
   .author-brand.header-brand { font-size: 1.1rem; }
   .header-brand .raskell-mark { width: 1.6rem; height: 1.6rem; }
   .footer-group { font-size: .77rem; }
